@@ -49,13 +49,6 @@ public class IndexController extends HttpServlet {
 		try {
 			String tipoConsulta = request.getParameter("tipoConsulta") == null ? ""
 					: request.getParameter("tipoConsulta");
-			String nombres = request.getParameter("nombres") == null ? ""
-					: request.getParameter("nombres").toUpperCase();
-			String apellidos = request.getParameter("apellidos") == null ? ""
-					: request.getParameter("apellidos").toUpperCase();
-			String email = request.getParameter("email") == null ? "" : request.getParameter("email").trim();
-			String contrasena = request.getParameter("contrasena") == null ? ""
-					: request.getParameter("contrasena").trim();
 			String usuarioLogin = request.getParameter("usuarioLogin") == null ? ""
 					: request.getParameter("usuarioLogin").trim();
 			String contrasenaLogin = request.getParameter("contrasenaLogin") == null ? ""
@@ -67,22 +60,6 @@ public class IndexController extends HttpServlet {
 			Usuario usuario = new Usuario();
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-			if (!email.equals("")) {
-				persona.setEmail(email);
-				usuario.setUsuario(email);
-			}
-			if (!contrasena.equals("")) {
-				//String encriptarClave = Utilitarios.encriptacionClave(contrasena);
-				usuario.setClave(contrasena);
-			}
-
-			if (!nombres.equals("")) {
-				persona.setNombres(nombres);
-			}
-			if (!apellidos.equals("")) {
-				persona.setApellidos(apellidos);
-			}
-
 			if (tipoConsulta.equals("crear")) {
 				personaDAO.crear(persona);
 				usuario.setPersona(persona);
@@ -92,12 +69,13 @@ public class IndexController extends HttpServlet {
 
 			if (tipoConsulta.equals("login")) {
 				Boolean flagLogin = false;
-				//flagLogin = usuarioDAO.login(usuarioLogin, Utilitarios.encriptacionClave(contrasenaLogin));
+				// flagLogin = usuarioDAO.login(usuarioLogin,
+				// Utilitarios.encriptacionClave(contrasenaLogin));
 				flagLogin = usuarioDAO.login(usuarioLogin, contrasenaLogin);
 				if (!flagLogin) {
 					result.put("errorLogin", "Usuario o Contraseña Incorrecta");
 				} else {
-					persona = personaDAO.buscarPorEmail(usuarioLogin);
+					persona = personaDAO.buscarPorUsuario(usuarioLogin);
 					int idPersonaLogin = persona.getIdPersona();
 					usuario = usuarioDAO.buscarPorIdPersona(idPersonaLogin);
 					activarSesion(request, usuario);

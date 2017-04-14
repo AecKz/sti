@@ -15,4 +15,12 @@
 		<servlet-name>tigre.sti.controlador.IndexController</servlet-name>
 		<url-pattern>/IndexController</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.DashboardController</servlet-name>
+		<servlet-class>tigre.sti.controlador.DashboardController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.DashboardController</servlet-name>
+		<url-pattern>/DashboardController</url-pattern>
+	</servlet-mapping>
 </web-app>

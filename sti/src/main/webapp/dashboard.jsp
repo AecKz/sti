@@ -55,23 +55,7 @@
 					<div class="navbar nav_title" style="border: 0;">
 						<a href="dashboard.jsp" class="site_title"><i
 							class="fa fa-paw"></i> <span>STI</span></a>
-					</div>
-					<div class="clearfix"></div>
-
-					<!-- menu prile quick info -->
-					<!-- 					<div class="profile"> -->
-					<!-- 						<div class="profile_pic"> -->
-					<!-- 							<img src="images/img.jpg" alt="..." class="img-circle profile_img"> -->
-					<!-- 						</div> -->
-					<!-- 						<div class="profile_info"> -->
-					<!-- 							<span>Bienvenido (a),</span> -->
-					<!-- 							<h2 id="txtUsuarioMenu"></h2> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
-					<!-- 					/menu prile quick info -->
-
-					<!-- 					<br /> -->
-
+					</div>					
 					<!-- sidebar menu -->
 					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
@@ -124,8 +108,7 @@
 									<li><a href="dashboard.jsp"> Inicio</a></li>
 									<li><a href="datosEstudiante.jsp"> <!--                       <span class="badge bg-red pull-right">50%</span> -->
 											<span>Perfil</span>
-									</a></li>
-									<li><a href="javascript:;">Ayuda</a></li>
+									</a></li>									
 									<li><a href="index.jsp" onclick="signOut();"><i
 											class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 								</ul></li>
@@ -224,7 +207,10 @@
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
-								<div class="x_content"></div>
+								<ul id="menuCentral">
+									</ul>
+<!-- 								<div class="x_content"></div> -->
+									
 							</div>
 						</div>
 

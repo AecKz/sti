@@ -96,23 +96,15 @@ public class ServicioDAO extends EntityManagerFactoryDAO {
 	 * @param idCategoria
 	 * @return objeto Servicio
 	 */
-	public Servicio buscarPorIdCategoria(int idCategoria) {
+	public List<Servicio> buscarPorIdCategoria(int idCategoria) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		Servicio servicio = new Servicio();
 		try {
 			TypedQuery<Servicio> query = em
 					.createQuery("SELECT u FROM Servicio u " + "JOIN FETCH u.categoria p "
-							+ "where p.idCategoria = :idCategoria", Servicio.class)
+							+ "where p.idCategoria = :idCategoria and u.servicio is null", Servicio.class)
 					.setParameter("idCategoria", idCategoria);
 			List<Servicio> results = query.getResultList();
-			if (!results.isEmpty()) {
-				servicio = results.get(0);
-			}
-			return servicio;
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-			return servicio;
+			return results;
 		} finally {
 			em.close();
 		}

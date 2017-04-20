@@ -23,7 +23,7 @@
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/controladores/dashboard.js"></script>
+<script src="js/controladores/registrarIncidencia.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -55,15 +55,15 @@
 					<div class="navbar nav_title" style="border: 0;">
 						<a href="dashboard.jsp" class="site_title"><i
 							class="fa fa-paw"></i> <span>STI</span></a>
-					</div>					
+					</div>
 					<!-- sidebar menu -->
 					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 
 						<div class="menu_section">
-							<h3>Catálogo de Servicios</h3>
-							<ul class="nav side-menu" id="menuLateral">
-							</ul>
+							<h3 id="tituloLateral">Servicio</h3>
+							<!-- <ul class="nav side-menu" id="menuLateral">
+							</ul> -->
 						</div>
 					</div>
 					<!-- /sidebar menu -->
@@ -108,7 +108,7 @@
 									<li><a href="dashboard.jsp"> Inicio</a></li>
 									<li><a href="datosUsuario.jsp"> <!--                       <span class="badge bg-red pull-right">50%</span> -->
 											<span>Perfil</span>
-									</a></li>									
+									</a></li>
 									<li><a href="index.jsp" onclick="signOut();"><i
 											class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 								</ul></li>
@@ -203,14 +203,139 @@
 
 							<div class="row x_title">
 								<div>
-									<h3>Bienvenido (a) a Global Services de Tigre</h3>
+									<h3 id="lblTitulo">Servicio</h3>
+									<h5 id="lblSubtitulo">Descripcion</h5>
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
-								<ul id="menuCentral">
-									</ul>
-<!-- 								<div class="x_content"></div> -->
-									
+								<form class="form-horizontal">
+									<fieldset>
+									<div class="row">
+										<!-- Select Basic -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="selSolicitante">Solicitante</label>
+											<div class="col-md-4">
+												<select id="selSolicitante" name="selSolicitante"
+													class="form-control">
+													<option value="1">Option one</option>
+													<option value="2">Option two</option>
+												</select>
+											</div>
+										</div>
+
+										<!-- Select Basic -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="selDepartamento">Departamento</label>
+											<div class="col-md-4">
+												<select id="selDepartamento" name="selDepartamento"
+													class="form-control">
+													<option value="1">Option one</option>
+													<option value="2">Option two</option>
+												</select>
+											</div>
+										</div>
+</div>
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtEmail">Correo
+												Electrónico</label>
+											<div class="col-md-4">
+												<input id="txtEmail" name="txtEmail" type="text"
+													placeholder="" class="form-control input-md" required="">
+
+											</div>
+										</div>
+
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtExtension">Extensión</label>
+											<div class="col-md-4">
+												<input id="txtExtension" name="txtExtension" type="text"
+													placeholder="" class="form-control input-md">
+
+											</div>
+										</div>
+
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtInscripcion">Inscripción
+												(Registro)</label>
+											<div class="col-md-4">
+												<input id="txtInscripcion" name="txtInscripcion" type="text"
+													placeholder="" class="form-control input-md">
+
+											</div>
+										</div>
+
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtTelefono">Teléfono
+												Alternativo</label>
+											<div class="col-md-4">
+												<input id="txtTelefono" name="txtTelefono" type="text"
+													placeholder="" class="form-control input-md" required="">
+
+											</div>
+										</div>
+
+										<!-- Select Basic -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="selContacto">Tipo
+												de Contacto</label>
+											<div class="col-md-4">
+												<select id="selContacto" name="selContacto"
+													class="form-control">
+													<option value="1">Portal</option>
+													<option value="2">Correo Electrónico</option>
+													<option value="3">Teléfono</option>
+													<option value="4">Monitoring</option>
+													<option value="">Chat</option>
+												</select>
+											</div>
+										</div>
+
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtTitulo">Título</label>
+											<div class="col-md-4">
+												<input id="txtTitulo" name="txtTitulo" type="text"
+													placeholder="" class="form-control input-md" required="">
+
+											</div>
+										</div>
+
+										<!-- Textarea -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtDescripcion">Descripción</label>
+											<div class="col-md-4">
+												<textarea class="form-control" id="txtDescripcion"
+													name="txtDescripcion"></textarea>
+											</div>
+										</div>
+
+										<!-- File Button -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="fbtnAdjunto">Agregar
+												archivos adjuntos</label>
+											<div class="col-md-4">
+												<input id="fbtnAdjunto" name="fbtnAdjunto"
+													class="input-file" type="file">
+											</div>
+										</div>
+
+										<!-- Button -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="btnEnviar"></label>
+											<div class="col-md-4">
+												<button id="btnEnviar" name="btnEnviar"
+													class="btn btn-primary">Enviar</button>
+											</div>
+										</div>
+
+									</fieldset>
+								</form>
+
+
 							</div>
 						</div>
 

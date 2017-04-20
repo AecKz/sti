@@ -23,4 +23,12 @@
 		<servlet-name>tigre.sti.controlador.DashboardController</servlet-name>
 		<url-pattern>/DashboardController</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.IncidenciaController</servlet-name>
+		<servlet-class>tigre.sti.controlador.IncidenciaController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.IncidenciaController</servlet-name>
+		<url-pattern>/IncidenciaController</url-pattern>
+	</servlet-mapping>
 </web-app>

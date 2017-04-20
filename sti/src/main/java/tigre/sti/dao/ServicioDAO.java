@@ -71,7 +71,7 @@ public class ServicioDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Servicio buscarPorId(String id) {
+	public Servicio buscarPorId(int id) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		Servicio servicio = new Servicio();
 		try {
@@ -103,6 +103,26 @@ public class ServicioDAO extends EntityManagerFactoryDAO {
 					.createQuery("SELECT u FROM Servicio u " + "JOIN FETCH u.categoria p "
 							+ "where p.idCategoria = :idCategoria and u.servicio is null", Servicio.class)
 					.setParameter("idCategoria", idCategoria);
+			List<Servicio> results = query.getResultList();
+			return results;
+		} finally {
+			em.close();
+		}
+	}
+	
+	/**
+	 * Metodo para buscar servicios hijos de un padre
+	 * 
+	 * @param idCategoria
+	 * @return objeto Servicio
+	 */
+	public List<Servicio> buscarPorServicio(Servicio servicio) {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		try {
+			TypedQuery<Servicio> query = em
+					.createQuery("SELECT u FROM Servicio u "
+							+ "where u.servicio = :servicio", Servicio.class)
+					.setParameter("servicio", servicio);
 			List<Servicio> results = query.getResultList();
 			return results;
 		} finally {

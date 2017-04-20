@@ -42,8 +42,6 @@
 				response.sendRedirect("/dashboardAdministrador.jsp");
 			} else if (session.getAttribute("rol").equals("coordinador")) {
 				response.sendRedirect("/dashboardCoordinador.jsp");
-			} else if (session.getAttribute("rol").equals("")) {
-				response.sendRedirect("/nuevoUsuario.jsp");
 			}
 		}
 	%>
@@ -289,7 +287,7 @@
 													<option value="2">Correo Electrónico</option>
 													<option value="3">Teléfono</option>
 													<option value="4">Monitoring</option>
-													<option value="">Chat</option>
+													<option value="5">Chat</option>
 												</select>
 											</div>
 										</div>

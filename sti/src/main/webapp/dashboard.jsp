@@ -42,8 +42,6 @@
 				response.sendRedirect("/dashboardAdministrador.jsp");
 			} else if (session.getAttribute("rol").equals("coordinador")) {
 				response.sendRedirect("/dashboardCoordinador.jsp");
-			} else if (session.getAttribute("rol").equals("")) {
-				response.sendRedirect("/nuevoUsuario.jsp");
 			}
 		}
 	%>

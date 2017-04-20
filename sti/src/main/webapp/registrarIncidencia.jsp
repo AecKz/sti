@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE>
@@ -239,7 +240,7 @@
 												Electrónico</label>
 											<div class="col-md-4">
 												<input id="txtEmail" name="txtEmail" type="text"
-													placeholder="" class="form-control input-md" required="">
+													placeholder="" class="form-control input-md" required>
 
 											</div>
 										</div>
@@ -271,7 +272,7 @@
 												Alternativo</label>
 											<div class="col-md-4">
 												<input id="txtTelefono" name="txtTelefono" type="text"
-													placeholder="" class="form-control input-md" required="">
+													placeholder="" class="form-control input-md" required>
 
 											</div>
 										</div>
@@ -297,7 +298,7 @@
 											<label class="col-md-4 control-label" for="txtTitulo">Título</label>
 											<div class="col-md-4">
 												<input id="txtTitulo" name="txtTitulo" type="text"
-													placeholder="" class="form-control input-md" required="">
+													placeholder="" class="form-control input-md" required>
 
 											</div>
 										</div>

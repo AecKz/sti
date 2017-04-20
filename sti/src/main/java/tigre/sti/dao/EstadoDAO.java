@@ -6,11 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import tigre.sti.dto.Estado;
-import tigre.sti.dto.Incidencia;
 import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
 
-public class IncidenciaDAO extends EntityManagerFactoryDAO {
-	public Incidencia crear(Incidencia objeto) {
+public class EstadoDAO extends EntityManagerFactoryDAO {
+	public Estado crear(Estado objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -28,7 +27,7 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Incidencia editar(Incidencia objeto) {
+	public Estado editar(Estado objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -44,12 +43,11 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Incidencia eliminar(Incidencia objeto) {
+	public Estado eliminar(Estado objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Incidencia EntidadToBeRemoved = em.getReference(Incidencia.class,
-					objeto.getIdIncidencia());
+			Estado EntidadToBeRemoved = em.getReference(Estado.class, objeto.getIdEstado());
 			em.remove(EntidadToBeRemoved);
 			em.getTransaction().commit();
 			return objeto;
@@ -62,47 +60,33 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public List<Incidencia> buscarTodos() {
+	public List<Estado> buscarTodos() {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<Incidencia> query = em.createQuery(
-					"SELECT e FROM Incidencia e order by e.fecha", Incidencia.class);
-			List<Incidencia> results = query.getResultList();
+			TypedQuery<Estado> query = em.createQuery("SELECT e FROM Estado e order by e.nombre", Estado.class);
+			List<Estado> results = query.getResultList();
 			return results;
 		} finally {
 			em.close();
 		}
 	}
 
-	public Incidencia buscarPorId(int id) {
+	public Estado buscarPorId(int id) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		Incidencia incidencia = new Incidencia();
+		Estado estado = new Estado();
 		try {
-			TypedQuery<Incidencia> query = em.createQuery(
-					"SELECT c FROM Incidencia c where c.idIncidencia = :idIncidencia ", Incidencia.class)
-					.setParameter("idIncidencia", id);
-			List<Incidencia> results = query.getResultList();
-			incidencia = results.get(0);
-			return incidencia;
+			TypedQuery<Estado> query = em
+					.createQuery("SELECT c FROM Estado c where c.idEstado = :idEstado ", Estado.class)
+					.setParameter("idEstado", id);
+			List<Estado> results = query.getResultList();
+			estado = results.get(0);
+			return estado;
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println(e.getMessage());
-			return incidencia;
+			return estado;
 		} finally {
 			em.close();
 		}
 	}
-	public List<Incidencia> buscarPorEstado(Estado estado) {
-		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		try {
-			TypedQuery<Incidencia> query = em.createQuery(
-					"SELECT c FROM Incidencia c JOIN FETCH c.estado p  where c.estado= :estado", Incidencia.class)
-					.setParameter("estado", estado);
-			List<Incidencia> results = query.getResultList();			
-			return results;		
-		} finally {
-			em.close();
-		}
-	}
-
 }

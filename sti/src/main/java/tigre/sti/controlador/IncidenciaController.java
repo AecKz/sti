@@ -1,6 +1,8 @@
 package tigre.sti.controlador;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,8 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import tigre.sti.dao.EstadoDAO;
+import tigre.sti.dao.IncidenciaDAO;
 import tigre.sti.dao.ServicioDAO;
+import tigre.sti.dao.UsuarioDAO;
+import tigre.sti.dto.Estado;
+import tigre.sti.dto.Incidencia;
 import tigre.sti.dto.Servicio;
+import tigre.sti.dto.Usuario;
 
 /**
  * Servlet implementation class IndexController
@@ -47,10 +55,15 @@ public class IncidenciaController extends HttpServlet {
 		JSONArray serviciosJSONArray = new JSONArray();
 		JSONObject serviciosJSONObject = new JSONObject();
 		ServicioDAO servicioDAO = new ServicioDAO();
+		IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		EstadoDAO estadoDAO = new EstadoDAO();
 		try {
 			String tipoConsulta = request.getParameter("tipoConsulta") == null ? ""
 					: request.getParameter("tipoConsulta");
 			String idServicio = request.getParameter("idServicio") == null ? "" : request.getParameter("idServicio");
+			String idUsuarioSolicitante = request.getParameter("idSolicitante") == null ? "" : request.getParameter("idSolicitante");
+			String idIncidencia= request.getParameter("idIncidencia") == null ? "" : request.getParameter("idIncidencia");
 
 			if (tipoConsulta.equals("cargarServicios")) {
 				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
@@ -65,6 +78,29 @@ public class IncidenciaController extends HttpServlet {
 				result.put("numRegistros", (serviciosJSONArray.size()));
 				result.put("listadoServicios", serviciosJSONArray);
 
+			}
+			if (tipoConsulta.equals("crearIncidencia")) {
+				Incidencia incidencia = new Incidencia();
+				Servicio servicio = new Servicio();
+				Usuario usuarioReporta = new Usuario();
+				servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
+				Estado estado = new Estado();
+				estado= estadoDAO.buscarPorId(1);				
+				incidencia.setEstado(estado);
+				Date date = new Date();
+				incidencia.setFecha(new Timestamp(date.getTime()));
+				incidencia.setServicio(servicio);
+				usuarioDAO.buscarPorId(idUsuarioSolicitante);				
+				incidencia.setUsuario1(usuarioReporta);
+				incidenciaDAO.crear(incidencia);
+			}
+			if(tipoConsulta.equals("busquedaIncidenciasActivas")){
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(1);
+				incidenciaDAO.buscarPorEstado(estado);
+			}
+			if(tipoConsulta.equals("busquedaIncidencia")){
+				incidenciaDAO.buscarPorId(Integer.parseInt(idIncidencia));
 			}
 
 			result.put("success", Boolean.TRUE);

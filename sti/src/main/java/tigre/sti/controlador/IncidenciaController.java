@@ -64,7 +64,7 @@ public class IncidenciaController extends HttpServlet {
 			String idServicio = request.getParameter("idServicio") == null ? "" : request.getParameter("idServicio");
 			String idUsuarioSolicitante = request.getParameter("idSolicitante") == null ? "" : request.getParameter("idSolicitante");
 			String idIncidencia= request.getParameter("idIncidencia") == null ? "" : request.getParameter("idIncidencia");
-
+			
 			if (tipoConsulta.equals("cargarServicios")) {
 				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
 				List<Servicio> servicios = servicio.getServicios();
@@ -79,6 +79,11 @@ public class IncidenciaController extends HttpServlet {
 				result.put("listadoServicios", serviciosJSONArray);
 
 			}
+			if(tipoConsulta.equals("cargarDatosServicio")){
+				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
+				result.put("nombreServicio", servicio.getNombre());
+				result.put("descripcionServicio", servicio.getDescripcion());
+			}			
 			if (tipoConsulta.equals("crearIncidencia")) {
 				Incidencia incidencia = new Incidencia();
 				Servicio servicio = new Servicio();

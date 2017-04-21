@@ -68,6 +68,8 @@ public class DashboardController extends HttpServlet {
 				persona = personaDAO.buscarPorUsuario(usuario);
 				String nombreCompleto = persona.getNombres() + " " + persona.getApellidos();
 				result.put("nombreCompleto", nombreCompleto);
+				result.put("email", persona.getEmail());
+				result.put("extension", persona.getTelefono());				
 			}
 
 			if (tipoConsulta.equals("cargarCategorias")) {

@@ -214,7 +214,7 @@
 											<label class="col-md-4 control-label" for="txtSolicitante">Solicitante</label>
 											<div class="col-md-4">
 												<input id="txtSolicitante" name="txtSolicitante" type="text"
-													placeholder="" class="form-control input-md">
+													disabled class="form-control input-md">
 
 											</div>
 										</div>
@@ -225,7 +225,7 @@
 												Electrónico</label>
 											<div class="col-md-4">
 												<input id="txtEmail" name="txtEmail" type="text"
-													placeholder="" class="form-control input-md" required>
+													disabled class="form-control input-md" required>
 
 											</div>
 										</div>
@@ -235,7 +235,7 @@
 											<label class="col-md-4 control-label" for="txtExtension">Extensión</label>
 											<div class="col-md-4">
 												<input id="txtExtension" name="txtExtension" type="text"
-													placeholder="" class="form-control input-md">
+													disabled class="form-control input-md">
 
 											</div>
 										</div>

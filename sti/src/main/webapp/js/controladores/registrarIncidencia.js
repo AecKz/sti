@@ -46,6 +46,22 @@ $(document).ready(
 				success : function(data) {
 					var nombreCompleto = data.nombreCompleto;
 					$('#txtUsuarioCabecera').text(nombreCompleto);
+					$('#txtSolicitante').val(nombreCompleto);
+					$('#txtEmail').val(data.email);
+					$('#txtExtension').val(data.extension);					
+				}
+			});
+			// Cargar Datos del Menu
+			$.ajax({
+				url : '../sti/IncidenciaController',
+				data : {
+					"tipoConsulta" : "cargarDatosServicio"
+				},
+				type : 'POST',
+				datatype : 'json',
+				success : function(data) {
+					$('#lblTitulo').text(data.nombreServicio);
+					$('#lblSubtitulo').text(data.descripcionServicio);										
 				}
 			});
 

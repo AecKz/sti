@@ -23,7 +23,7 @@
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/controladores/dashboard.js"></script>
+<script src="js/controladores/dashboardAdministrador.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -38,8 +38,8 @@
 		if (session.getAttribute("login") == null) {
 			response.sendRedirect("/index.jsp");
 		} else {
-			if (session.getAttribute("rol").equals("administrador")) {
-				response.sendRedirect("/sti/dashboardAdministrador.jsp");
+			if (session.getAttribute("rol").equals("usuario")) {
+				response.sendRedirect("/sti/dashboard.jsp");
 			} else if (session.getAttribute("rol").equals("coordinador")) {
 				response.sendRedirect("/sti/dashboardCoordinador.jsp");
 			}
@@ -53,14 +53,16 @@
 					<div class="navbar nav_title" style="border: 0;">
 						<a href="dashboard.jsp" class="site_title"><i
 							class="fa fa-paw"></i> <span>STI</span></a>
-					</div>					
+					</div>
 					<!-- sidebar menu -->
 					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 
 						<div class="menu_section">
-							<h3>Catálogo de Servicios</h3>
+							<h3>Administrador</h3>
 							<ul class="nav side-menu" id="menuLateral">
+								<li><a href="#"><i class="fa fa-file-text-o"></i>Reportes</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -106,7 +108,7 @@
 									<li><a href="dashboard.jsp"> Inicio</a></li>
 									<li><a href="datosUsuario.jsp"> <!--                       <span class="badge bg-red pull-right">50%</span> -->
 											<span>Perfil</span>
-									</a></li>									
+									</a></li>
 									<li><a href="index.jsp" onclick="signOut();"><i
 											class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 								</ul></li>
@@ -206,9 +208,9 @@
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<ul id="menuCentral">
-									</ul>
-<!-- 								<div class="x_content"></div> -->
-									
+								</ul>
+								<!-- 								<div class="x_content"></div> -->
+
 							</div>
 						</div>
 

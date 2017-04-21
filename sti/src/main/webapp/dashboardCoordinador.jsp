@@ -23,7 +23,7 @@
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/controladores/dashboard.js"></script>
+<script src="js/controladores/dashboardCoordinador.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -40,8 +40,8 @@
 		} else {
 			if (session.getAttribute("rol").equals("administrador")) {
 				response.sendRedirect("/sti/dashboardAdministrador.jsp");
-			} else if (session.getAttribute("rol").equals("coordinador")) {
-				response.sendRedirect("/sti/dashboardCoordinador.jsp");
+			} else if (session.getAttribute("rol").equals("usuario")) {
+				response.sendRedirect("/sti/dashboard.jsp");
 			}
 		}
 	%>
@@ -59,8 +59,10 @@
 						class="main_menu_side hidden-print main_menu">
 
 						<div class="menu_section">
-							<h3>Catálogo de Servicios</h3>
+							<h3>Coordinador</h3>
 							<ul class="nav side-menu" id="menuLateral">
+							<li><a href="#"><i class="fa fa-tasks"></i>Incidencias</a>
+								</li>
 							</ul>
 						</div>
 					</div>

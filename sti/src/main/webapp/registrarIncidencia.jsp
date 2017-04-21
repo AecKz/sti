@@ -209,31 +209,16 @@
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<form class="form-horizontal">
 									<fieldset>
-									<div class="row">
-										<!-- Select Basic -->
+										<!-- Text input-->
 										<div class="form-group">
-											<label class="col-md-4 control-label" for="selSolicitante">Solicitante</label>
+											<label class="col-md-4 control-label" for="txtSolicitante">Solicitante</label>
 											<div class="col-md-4">
-												<select id="selSolicitante" name="selSolicitante"
-													class="form-control">
-													<option value="1">Option one</option>
-													<option value="2">Option two</option>
-												</select>
-											</div>
-										</div>
+												<input id="txtSolicitante" name="txtSolicitante" type="text"
+													placeholder="" class="form-control input-md">
 
-										<!-- Select Basic -->
-										<div class="form-group">
-											<label class="col-md-4 control-label" for="selDepartamento">Departamento</label>
-											<div class="col-md-4">
-												<select id="selDepartamento" name="selDepartamento"
-													class="form-control">
-													<option value="1">Option one</option>
-													<option value="2">Option two</option>
-												</select>
 											</div>
 										</div>
-</div>
+										<!-- Text input-->
 										<!-- Text input-->
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="txtEmail">Correo

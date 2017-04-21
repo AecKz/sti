@@ -19,10 +19,22 @@ public class Incidencia implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idIncidencia;
 
+	private String adjuntos;
+
+	private String descripcion;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 
 	private String observacion;
+
+	private String telefonoContacto;
+
+	private String tipoContacto;
+
+	private String titulo;
+
+	private String transaccion;
 
 	//bi-directional many-to-one association to Estado
 	@ManyToOne
@@ -59,6 +71,22 @@ public class Incidencia implements Serializable {
 		this.idIncidencia = idIncidencia;
 	}
 
+	public String getAdjuntos() {
+		return this.adjuntos;
+	}
+
+	public void setAdjuntos(String adjuntos) {
+		this.adjuntos = adjuntos;
+	}
+
+	public String getDescripcion() {
+		return this.descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public Date getFecha() {
 		return this.fecha;
 	}
@@ -73,6 +101,38 @@ public class Incidencia implements Serializable {
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
+	}
+
+	public String getTelefonoContacto() {
+		return this.telefonoContacto;
+	}
+
+	public void setTelefonoContacto(String telefonoContacto) {
+		this.telefonoContacto = telefonoContacto;
+	}
+
+	public String getTipoContacto() {
+		return this.tipoContacto;
+	}
+
+	public void setTipoContacto(String tipoContacto) {
+		this.tipoContacto = tipoContacto;
+	}
+
+	public String getTitulo() {
+		return this.titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getTransaccion() {
+		return this.transaccion;
+	}
+
+	public void setTransaccion(String transaccion) {
+		this.transaccion = transaccion;
 	}
 
 	public Estado getEstado() {

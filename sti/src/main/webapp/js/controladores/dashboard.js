@@ -36,8 +36,8 @@ function cargarServicios(idCategoria) {
 											$("#menuCentral")
 													.append(
 															"<li><a id='"
-																	+ listadoServicios[index].idServicios
-																	+ "' href='#' onclick='registrarIncidencia(id)'><i class='fa fa-cog'></i>"
+																	+ listadoServicios[index].idServicio
+																	+ "' href='#' onclick='registrarIncidencia(id);'><i class='fa fa-cog'></i>"
 																	+ listadoServicios[index].nombre
 																	+ "</a></li>");
 										});
@@ -49,6 +49,7 @@ function cargarServicios(idCategoria) {
 }
 
 function registrarIncidencia(idServicio) {
+	debugger;
 	$("#menuCentral").empty();
 	$
 			.ajax({
@@ -69,7 +70,7 @@ function registrarIncidencia(idServicio) {
 											$("#menuCentral")
 													.append(
 															"<li><a id='"
-																	+ listadoServicios[index].idServicios
+																	+ listadoServicios[index].idServicio
 																	+ "' href='#' onclick='registrarIncidencia(id)'><i class='fa fa-cog'></i>"
 																	+ listadoServicios[index].nombre
 																	+ "</a></li>");

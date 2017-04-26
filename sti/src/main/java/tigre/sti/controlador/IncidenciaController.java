@@ -65,6 +65,10 @@ public class IncidenciaController extends HttpServlet {
 			String idServicio = request.getParameter("idServicio") == null ? "" : request.getParameter("idServicio");
 			String idUsuarioSolicitante = request.getParameter("idSolicitante") == null ? "" : request.getParameter("idSolicitante");
 			String idIncidencia= request.getParameter("idIncidencia") == null ? "" : request.getParameter("idIncidencia");
+			String telefonoContacto = request.getParameter("telefonoContacto") == null ? "" : request.getParameter("telefonoContacto");
+			String tipoContacto = request.getParameter("tipoContacto") == null ? "" : request.getParameter("tipoContacto");
+			String titulo = request.getParameter("titulo") == null ? "" : request.getParameter("titulo");
+			String descripcion = request.getParameter("descripcion") == null ? "" : request.getParameter("descripcion");
 			
 			HttpSession session = request.getSession();
 			String auxIdServicio = session.getAttribute("idServicio").toString();
@@ -106,6 +110,10 @@ public class IncidenciaController extends HttpServlet {
 				incidencia.setServicio(servicio);
 				usuarioDAO.buscarPorId(idUsuarioSolicitante);				
 				incidencia.setUsuario1(usuarioReporta);
+				incidencia.setTelefonoContacto(telefonoContacto);
+				incidencia.setTipoContacto(tipoContacto);
+				incidencia.setTitulo(titulo);
+				incidencia.setDescripcion(descripcion);				
 				incidenciaDAO.crear(incidencia);
 			}
 			if(tipoConsulta.equals("busquedaIncidenciasActivas")){

@@ -44,9 +44,9 @@
 			} else if (session.getAttribute("rol").equals("coordinador")) {
 				response.sendRedirect("/dashboardCoordinador.jsp");
 			}
+			String var = request.getParameter("var");
+			session.setAttribute("idServicio", var);
 		}
-		String var = request.getParameter("idServicio");
-		session.setAttribute("idServicio", var);
 	%>
 	<div class="container body">
 		<div class="main_container">
@@ -63,8 +63,8 @@
 
 						<div class="menu_section">
 							<h3 id="tituloLateral">Servicio</h3>
-							<!-- <ul class="nav side-menu" id="menuLateral">
-							</ul> -->
+							<ul class="nav side-menu" id="menuLateral">
+							</ul>
 						</div>
 					</div>
 					<!-- /sidebar menu -->

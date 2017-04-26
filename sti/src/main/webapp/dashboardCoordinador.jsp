@@ -207,10 +207,22 @@
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
-								<ul id="menuCentral">
-									</ul>
-<!-- 								<div class="x_content"></div> -->
-									
+							<!-- tablas de Incidencias Abiertas-->
+							<table id="tblTurnosReservados" class="table">
+							 <thead>
+								<tr>
+								<th>FECHA</th>
+								<th>CATEGORIA</th>
+								<th>SERVICIO</th>
+								<th>TITULO</th>
+								<th>DESCRIPCION</th>
+								<th>SOLICITANTE</th>								
+								</tr>
+							</thead>
+							<tbody id="contentReservados"></tbody>
+							</table>
+					   <!-- final tablas de turnos reservados-->
+	
 							</div>
 						</div>
 

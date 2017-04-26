@@ -45,6 +45,8 @@
 				response.sendRedirect("/dashboardCoordinador.jsp");
 			}
 		}
+		String var = request.getParameter("idServicio");
+		session.setAttribute("idServicio", var);
 	%>
 	<div class="container body">
 		<div class="main_container">

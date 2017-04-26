@@ -76,7 +76,7 @@ function registrarIncidencia(idServicio) {
 																	+ "</a></li>");
 										});
 					} else {
-						window.location = "registrarIncidencia.jsp";
+						window.location = "registrarIncidencia.jsp?idServicio="+idServicio;
 					}
 				}
 			});

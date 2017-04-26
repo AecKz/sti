@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -64,6 +65,14 @@ public class IncidenciaController extends HttpServlet {
 			String idServicio = request.getParameter("idServicio") == null ? "" : request.getParameter("idServicio");
 			String idUsuarioSolicitante = request.getParameter("idSolicitante") == null ? "" : request.getParameter("idSolicitante");
 			String idIncidencia= request.getParameter("idIncidencia") == null ? "" : request.getParameter("idIncidencia");
+			
+			HttpSession session = request.getSession();
+			String auxIdServicio = session.getAttribute("idServicio").toString();
+			
+			if(idServicio.equals("")){
+				idServicio = auxIdServicio;
+			}
+			
 			
 			if (tipoConsulta.equals("cargarServicios")) {
 				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));

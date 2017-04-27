@@ -19,7 +19,7 @@ $(document).ready(function() {
 			datatype : 'json',
 			success : function(data) {
 				if (data.success) {
-					window.location = "dashboard.jsp";
+					window.location = "/sti/dashboard.jsp";
 				} else {
 					alert("Usuario o Contrase&ntilde;a Incorrecta")
 				}

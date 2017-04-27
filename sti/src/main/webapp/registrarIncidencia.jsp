@@ -272,11 +272,11 @@
 											<div class="col-md-4">
 												<select id="selContacto" name="selContacto"
 													class="form-control">
-													<option value="1">Portal</option>
-													<option value="2">Correo Electrónico</option>
-													<option value="3">Teléfono</option>
-													<option value="4">Monitoring</option>
-													<option value="5">Chat</option>
+													<option value="Portal">Portal</option>
+													<option value="Correo Electrónico">Correo Electrónico</option>
+													<option value="Teléfono">Teléfono</option>
+													<option value="Monitoring">Monitoring</option>
+													<option value="Chat">Chat</option>
 												</select>
 											</div>
 										</div>

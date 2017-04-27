@@ -37,17 +37,10 @@ function crearIncidencia(){
 		type : 'POST',
 		datatype : 'json',
 		success : function(data) {
-			var resultado = data.resultado;
-			switch (resultado)
-			{
-			   case "ok":
-				   alert('Incidente registrado exitosamente');
-				   break;
-			   case "error":
-				   alert('Hubo un error');
-				   break;
-			   default: 
-			       alert('Hubo un error');
+			if (data.success) {
+				window.location = "/sti/dashboard.jsp";
+			} else {
+				alert("Hubo un error")
 			}
 							
 		}

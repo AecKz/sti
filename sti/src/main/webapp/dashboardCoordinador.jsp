@@ -36,7 +36,7 @@
 	<%
 		// Permitimos el acceso si la session existe		
 		if (session.getAttribute("login") == null) {
-			response.sendRedirect("/index.jsp");
+			response.sendRedirect("/sti/index.jsp");
 		} else {
 			if (session.getAttribute("rol").equals("administrador")) {
 				response.sendRedirect("/sti/dashboardAdministrador.jsp");

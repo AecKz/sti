@@ -91,6 +91,24 @@ public class UsuarioDAO extends EntityManagerFactoryDAO {
 			em.close();
 		}
 	}
+	public Usuario buscarPorUsuario(String usuario) {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		Usuario usr = new Usuario();
+		try {
+			TypedQuery<Usuario> query = em.createQuery(
+					"SELECT c FROM Usuario c where c.usuario = :usuario ", Usuario.class)
+					.setParameter("usuario", usuario);
+			List<Usuario> results = query.getResultList();
+			usr = results.get(0);
+			return usr;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println(e.getMessage());
+			return usr;
+		} finally {
+			em.close();
+		}
+	}
 	/**
 	 * Metodo para buscar el objeto Usuario a partir del idPersona
 	 * @param idPersona

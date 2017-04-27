@@ -37,7 +37,7 @@
 	<%
 		// Permitimos el acceso si la session existe		
 		if (session.getAttribute("login") == null) {
-			response.sendRedirect("/index.jsp");
+			response.sendRedirect("/sti/index.jsp");
 		} else {
 			if (session.getAttribute("rol").equals("administrador")) {
 				response.sendRedirect("/dashboardAdministrador.jsp");
@@ -206,6 +206,7 @@
 								<div>
 									<h3 id="lblTitulo">Servicio</h3>
 									<h5 id="lblSubtitulo">Descripcion</h5>
+									<h5 id="lblServicio"></h5>
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
@@ -314,7 +315,7 @@
 											<label class="col-md-4 control-label" for="btnEnviar"></label>
 											<div class="col-md-4">
 												<button id="btnEnviar" name="btnEnviar"
-													class="btn btn-primary">Enviar</button>
+													class="btn btn-primary" onclick="crearIncidencia();">Enviar</button>
 											</div>
 										</div>
 

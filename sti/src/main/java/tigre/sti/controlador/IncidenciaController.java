@@ -71,12 +71,13 @@ public class IncidenciaController extends HttpServlet {
 			String descripcion = request.getParameter("descripcion") == null ? "" : request.getParameter("descripcion");
 			
 			HttpSession session = request.getSession();
-			String auxIdServicio = session.getAttribute("idServicio").toString();
 			
-			if(idServicio.equals("")){
-				idServicio = auxIdServicio;
+			if(idServicio.equals("") && session.getAttribute("idServicio")!= null){
+				idServicio = session.getAttribute("idServicio").toString();
 			}
-			
+			if(idUsuarioSolicitante.equals("")){
+				idUsuarioSolicitante = session.getAttribute("login").toString();
+			}
 			
 			if (tipoConsulta.equals("cargarServicios")) {
 				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
@@ -96,6 +97,7 @@ public class IncidenciaController extends HttpServlet {
 				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
 				result.put("nombreServicio", servicio.getNombre());
 				result.put("descripcionServicio", servicio.getDescripcion());
+				result.put("idServicio", servicio.getIdServicio());
 			}			
 			if (tipoConsulta.equals("crearIncidencia")) {
 				Incidencia incidencia = new Incidencia();
@@ -108,8 +110,8 @@ public class IncidenciaController extends HttpServlet {
 				Date date = new Date();
 				incidencia.setFecha(new Timestamp(date.getTime()));
 				incidencia.setServicio(servicio);
-				usuarioDAO.buscarPorId(idUsuarioSolicitante);				
-				incidencia.setUsuario1(usuarioReporta);
+				usuarioReporta = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);				
+				incidencia.setUsuario2(usuarioReporta);
 				incidencia.setTelefonoContacto(telefonoContacto);
 				incidencia.setTipoContacto(tipoContacto);
 				incidencia.setTitulo(titulo);

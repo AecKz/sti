@@ -244,15 +244,15 @@
 										</div>
 
 										<!-- Text input-->
-										<div class="form-group">
-											<label class="col-md-4 control-label" for="txtInscripcion">Inscripción
-												(Registro)</label>
-											<div class="col-md-4">
-												<input id="txtInscripcion" name="txtInscripcion" type="text"
-													placeholder="" class="form-control input-md">
+<!-- 										<div class="form-group"> -->
+<!-- 											<label class="col-md-4 control-label" for="txtInscripcion">Inscripción -->
+<!-- 												(Registro)</label> -->
+<!-- 											<div class="col-md-4"> -->
+<!-- 												<input id="txtInscripcion" name="txtInscripcion" type="text" -->
+<!-- 													placeholder="" class="form-control input-md"> -->
 
-											</div>
-										</div>
+<!-- 											</div> -->
+<!-- 										</div> -->
 
 										<!-- Text input-->
 										<div class="form-group">

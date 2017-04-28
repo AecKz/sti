@@ -22,6 +22,7 @@ import tigre.sti.dto.Estado;
 import tigre.sti.dto.Incidencia;
 import tigre.sti.dto.Servicio;
 import tigre.sti.dto.Usuario;
+import tigre.sti.util.Utilitarios;
 
 /**
  * Servlet implementation class IndexController
@@ -55,6 +56,8 @@ public class IncidenciaController extends HttpServlet {
 		JSONObject result = new JSONObject();
 		JSONArray serviciosJSONArray = new JSONArray();
 		JSONObject serviciosJSONObject = new JSONObject();
+		JSONArray incidenciasJSONArray = new JSONArray();
+		JSONObject incidenciasJSONObject = new JSONObject();
 		ServicioDAO servicioDAO = new ServicioDAO();
 		IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -121,7 +124,21 @@ public class IncidenciaController extends HttpServlet {
 			if(tipoConsulta.equals("busquedaIncidenciasActivas")){
 				Estado estado = new Estado();
 				estado = estadoDAO.buscarPorId(1);
-				incidenciaDAO.buscarPorEstado(estado);
+				List<Incidencia> incidencias = incidenciaDAO.buscarPorEstado(estado);
+				for(Incidencia incidencia: incidencias){
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFecha());
+					incidenciasJSONObject.put("fecha", fechaTurno);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
 			}
 			if(tipoConsulta.equals("busquedaIncidencia")){
 				incidenciaDAO.buscarPorId(Integer.parseInt(idIncidencia));

@@ -29,6 +29,7 @@
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
+<script src="js/util.js"></script>
 </head>
 
 
@@ -206,20 +207,60 @@
 									<h3>Bienvenido (a) a Global Services de Tigre</h3>
 								</div>
 							</div>
+							<!-- Button trigger modal -->
+		<button class="btn btn-primary" data-toggle="modal" data-target="#add" id="addButton">
+			<span class="glyphicon glyphicon-plus"></span> &nbsp; Nuevo
+		</button>
+							<!-- Modal -->
+		<div class="modal fade" id="add" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id="formCrud">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Gestionar Incidencia</h4>
+						</div>
+						<div class="modal-body">
+							<div class="alert alert-success" id="msgPopup">Se ha guardado correctamente.</div>
+							<div class="form-group">
+								<input type="hidden"class="form-control" id="codigo">
+								<label>Nombre</label> 
+								<input type="text"class="form-control required" id="nombre">
+								<label>Descripci&oacute;n</label> 
+								<input type="text"class="form-control required" id="descripcion">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" id="close-popup"
+								data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary" id="save-record">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+							
 							<div class="col-md-12 col-sm-12 col-xs-12">
+							<h4>Incidencias Pendientes</h4>
 							<!-- tablas de Incidencias Abiertas-->
-							<table id="tblTurnosReservados" class="table">
+							<table id="tblIncidencias" class="table">
 							 <thead>
 								<tr>
 								<th>FECHA</th>
 								<th>CATEGORIA</th>
 								<th>SERVICIO</th>
-								<th>TITULO</th>
-								<th>DESCRIPCION</th>
-								<th>SOLICITANTE</th>								
+								<th>TÍTULO</th>
+								<th>DESCRIPCIÓN</th>
+								<th>SOLICITANTE</th>
+								<th></th>								
 								</tr>
 							</thead>
-							<tbody id="contentReservados"></tbody>
+							<tbody id="contentIncidencias"></tbody>
 							</table>
 					   <!-- final tablas de turnos reservados-->
 	

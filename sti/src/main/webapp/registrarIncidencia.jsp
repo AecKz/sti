@@ -227,8 +227,8 @@
 											<label class="col-md-4 control-label" for="txtEmail">Correo
 												Electrónico</label>
 											<div class="col-md-4">
-												<input id="txtEmail" name="txtEmail" type="text"
-													disabled class="form-control input-md" required>
+												<input id="txtEmail" name="txtEmail" type="text" disabled
+													class="form-control input-md" required>
 
 											</div>
 										</div>
@@ -273,7 +273,8 @@
 												<select id="selContacto" name="selContacto"
 													class="form-control">
 													<option value="Portal">Portal</option>
-													<option value="Correo Electrónico">Correo Electrónico</option>
+													<option value="Correo Electrónico">Correo
+														Electrónico</option>
 													<option value="Teléfono">Teléfono</option>
 													<option value="Monitoring">Monitoring</option>
 													<option value="Chat">Chat</option>
@@ -309,20 +310,16 @@
 													class="input-file" type="file">
 											</div>
 										</div>
-
-										<!-- Button -->
-										<div class="form-group">
-											<label class="col-md-4 control-label" for="btnEnviar"></label>
-											<div class="col-md-4">
-												<button id="btnEnviar" name="btnEnviar"
-													class="btn btn-primary" onclick="crearIncidencia();">Enviar</button>
-											</div>
-										</div>
-
 									</fieldset>
 								</form>
-
-
+								<!-- Button -->
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="btnEnviar"></label>
+									<div class="col-md-4">
+										<button id="btnEnviar" type="submit" name="btnEnviar"
+											class="btn btn-primary" onclick="crearIncidencia();">Enviar</button>
+									</div>
+								</div>
 							</div>
 						</div>
 

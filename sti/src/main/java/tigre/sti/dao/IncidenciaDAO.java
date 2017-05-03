@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import tigre.sti.dto.Estado;
 import tigre.sti.dto.Incidencia;
+import tigre.sti.dto.Usuario;
 import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
 
 public class IncidenciaDAO extends EntityManagerFactoryDAO {
@@ -98,6 +99,19 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 			TypedQuery<Incidencia> query = em.createQuery(
 					"SELECT c FROM Incidencia c JOIN FETCH c.estado p  where c.estado= :estado", Incidencia.class)
 					.setParameter("estado", estado);
+			List<Incidencia> results = query.getResultList();			
+			return results;		
+		} finally {
+			em.close();
+		}
+	}
+	
+	public List<Incidencia> buscarPorUsuario(Usuario usuario) {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		try {
+			TypedQuery<Incidencia> query = em.createQuery(
+					"SELECT c FROM Incidencia c JOIN FETCH c.usuario2 p  where c.usuario2= :usuario2", Incidencia.class)
+					.setParameter("usuario2", usuario);
 			List<Incidencia> results = query.getResultList();			
 			return results;		
 		} finally {

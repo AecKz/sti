@@ -143,6 +143,23 @@ public class IncidenciaController extends HttpServlet {
 			if(tipoConsulta.equals("busquedaIncidencia")){
 				incidenciaDAO.buscarPorId(Integer.parseInt(idIncidencia));
 			}
+			
+			if(tipoConsulta.equals("busquedaIncidenciasActivasSolicitante")){
+				Usuario usuario = new Usuario();
+				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
+				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioSolicitante(usuario);
+				for(Incidencia incidencia: incidencias){
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFecha());
+					incidenciasJSONObject.put("fecha", fechaTurno);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			
 
 			result.put("success", Boolean.TRUE);
 			response.setContentType("application/json; charset=UTF-8");

@@ -130,5 +130,32 @@ $(document)
 									}
 								}
 							});
-
-				});
+					
+					
+					//Cargar menu barra
+					$
+							.ajax({
+								url : '../sti/IncidenciaController',
+								data : {
+									"tipoConsulta" : "busquedaIncidenciasActivasSolicitante"
+								},
+								type : 'POST',
+								datatype : 'json',
+								success : function(data) {
+									if (data.numRegistros > 0) {
+										var listadoIncidencias = data.listadoIncidencias;
+										$('#contadorIncidencias').text(data.numRegistros);
+										$.each(listadoIncidencias,function(index) {
+											$("#menu1").append(
+													"<li><a id='"+ listadoIncidencias[index].codigo
+													+ "' href='#' onclick='cargarIncidencia(id)'><span><span>"
+													+ listadoIncidencias[index].servicio +"</span><span class='time'>"
+													+ listadoIncidencias[index].fecha +"</span></span><span class='message'>"
+													+ listadoIncidencias[index].titulo+"</span></a></li>");
+														});
+									} else {
+										$("#menu1").append("No existen Registros");
+									}
+								}
+							});				
+				});// Fin ready

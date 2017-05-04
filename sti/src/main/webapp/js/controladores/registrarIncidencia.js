@@ -84,5 +84,4 @@ $(document).ready(
 						+ "</li>");
 				}
 			});		
-
-		});
+		});// Fin ready

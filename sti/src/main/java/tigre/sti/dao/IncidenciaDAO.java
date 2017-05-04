@@ -106,12 +106,14 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 		}
 	}
 	
-	public List<Incidencia> buscarPorUsuario(Usuario usuario) {
+	public List<Incidencia> buscarPorUsuarioSolicitante(Usuario usuario) {
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = estadoDAO.buscarPorId(1);
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			TypedQuery<Incidencia> query = em.createQuery(
-					"SELECT c FROM Incidencia c JOIN FETCH c.usuario2 p  where c.usuario2= :usuario2", Incidencia.class)
-					.setParameter("usuario2", usuario);
+					"SELECT c FROM Incidencia c JOIN FETCH c.usuario2 p  where c.usuario2= :usuario2 and c.estado = :estado", Incidencia.class)
+					.setParameter("usuario2", usuario).setParameter("estado", estado);
 			List<Incidencia> results = query.getResultList();			
 			return results;		
 		} finally {

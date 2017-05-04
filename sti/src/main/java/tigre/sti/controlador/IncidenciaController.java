@@ -20,6 +20,7 @@ import tigre.sti.dao.ServicioDAO;
 import tigre.sti.dao.UsuarioDAO;
 import tigre.sti.dto.Estado;
 import tigre.sti.dto.Incidencia;
+import tigre.sti.dto.Rol;
 import tigre.sti.dto.Servicio;
 import tigre.sti.dto.Usuario;
 import tigre.sti.util.Utilitarios;
@@ -58,6 +59,8 @@ public class IncidenciaController extends HttpServlet {
 		JSONObject serviciosJSONObject = new JSONObject();
 		JSONArray incidenciasJSONArray = new JSONArray();
 		JSONObject incidenciasJSONObject = new JSONObject();
+		JSONArray tecnicosJSONArray = new JSONArray();
+		JSONObject tecnicosJSONObject = new JSONObject();
 		ServicioDAO servicioDAO = new ServicioDAO();
 		IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -158,6 +161,21 @@ public class IncidenciaController extends HttpServlet {
 				}
 				result.put("numRegistros", (incidenciasJSONArray.size()));
 				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			
+			if (tipoConsulta.equals("cargarTecnicos")) {
+				Rol rol = new Rol();
+				rol.setIdRol(4);
+				List<Usuario> tecnicos = usuarioDAO.buscarTodosPorRol(rol);
+				for(Usuario tecnico: tecnicos){
+					tecnicosJSONObject.put("codigo", tecnico.getIdUsuario());
+					tecnicosJSONObject.put("nombre", tecnico.getPersona().getNombres() 
+							+ " " + tecnico.getPersona().getApellidos());
+					tecnicosJSONArray.add(tecnicosJSONObject);
+				}
+				result.put("numRegistros", (tecnicosJSONArray.size()));
+				result.put("listadoTecnicos", tecnicosJSONArray);
+
 			}
 			
 

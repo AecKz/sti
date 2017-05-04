@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
+import tigre.sti.dto.Rol;
 import tigre.sti.dto.Usuario;
 
 public class UsuarioDAO extends EntityManagerFactoryDAO {
@@ -132,6 +133,30 @@ public class UsuarioDAO extends EntityManagerFactoryDAO {
 			em.getTransaction().rollback();
 			System.out.println(e.getMessage());
 			return usuario;
+		} finally {
+			em.close();
+		}
+	}
+	
+	/**
+	 * Metodo para buscar el objeto Usuario a partir del rol
+	 * @param rol
+	 * @return Lista Usuario
+	 * */
+	public List<Usuario> buscarTodosPorRol(Rol rol) {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		List<Usuario> usuarios = null;
+		try {
+			TypedQuery<Usuario> query = em.createQuery(
+					"SELECT u FROM Usuario u "
+					+ "where u.rol = :rol", Usuario.class)
+					.setParameter("rol", rol);
+			usuarios = query.getResultList();					
+			return usuarios;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println(e.getMessage());
+			return usuarios;
 		} finally {
 			em.close();
 		}

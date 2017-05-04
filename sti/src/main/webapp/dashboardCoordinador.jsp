@@ -227,10 +227,14 @@
 							<div class="alert alert-success" id="msgPopup">Se ha guardado correctamente.</div>
 							<div class="form-group">
 								<input type="hidden"class="form-control" id="codigo">
-								<label>Nombre</label> 
-								<input type="text"class="form-control required" id="nombre">
+								<label>Categor&iacute;a</label> 
+								<input type="text"class="form-control" disabled id="categoria">
+								<label>Servicio</label> 
+								<input type="text"class="form-control" disabled id="servicio">
+								<label>T&iacute;tulo</label> 
+								<input type="text"class="form-control" disabled id="titulo">
 								<label>Descripci&oacute;n</label> 
-								<input type="text"class="form-control required" id="descripcion">
+								<input type="text"class="form-control" disabled id="descripcion">
 							</div>
 						</div>
 						<div class="modal-footer">

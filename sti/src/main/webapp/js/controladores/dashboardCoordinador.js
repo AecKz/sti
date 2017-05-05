@@ -1,3 +1,6 @@
+var codigo = "";
+var idTecnico = "";
+var tipoConsulta = "";
 //signOut
 function signOut() {
 	cerrarSesion();
@@ -98,19 +101,33 @@ $(document)
 							}
 						});		
 						codigo = $("#codigo").val();
-						horaInicio = $("#horaInicio").val();
-						horaFinal = $("#horaFinal").val();
-						dia = $("#dia").val();
-						if (codigo == ""){
-							tipoConsulta = "crear";
-						}else{
-							tipoConsulta = "actualizar";
-						}
+						idTecnico = $("#selectTecnico").select2("val");
+						tipoConsulta = "asignarTecnicoIncidencia";
 						if(retorno){
-							enviarDatos(codigo, horaInicio, horaFinal, dia, tipoConsulta);
-						}
+							enviarDatos(codigo, idTecnico, tipoConsulta);
+						}						
 					});
 				/* Fin Controles Grabar Resgistro*/
+					function enviarDatos(codigo, idTecnico, tipoConsulta){
+						$.ajax({
+							url : '../sti/IncidenciaController',
+							data : {
+								"codigo" : codigo,
+								"idTecnico" : idTecnico,
+								"tipoConsulta": tipoConsulta
+							},
+							type : 'POST',
+							datatype : 'json',
+							success : function(data) {
+								if(data.success){
+									$("#msgPopup").show();
+								}else{
+									alert(data.error);
+								}
+							}
+						});
+					}
+					
 				
 				//Cargar select2 tecnicos
 					$.ajax({

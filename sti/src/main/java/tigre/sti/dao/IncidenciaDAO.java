@@ -123,7 +123,7 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 	
 	public List<Incidencia> buscarPorUsuarioResponsable(Usuario usuario) {
 		EstadoDAO estadoDAO = new EstadoDAO();
-		Estado estado = estadoDAO.buscarPorId(1);
+		Estado estado = estadoDAO.buscarPorId(6);
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			TypedQuery<Incidencia> query = em.createQuery(

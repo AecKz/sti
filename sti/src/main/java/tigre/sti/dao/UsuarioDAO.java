@@ -73,7 +73,7 @@ public class UsuarioDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Usuario buscarPorId(String id) {
+	public Usuario buscarPorId(int id) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		Usuario usuario = new Usuario();
 		try {

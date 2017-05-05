@@ -1,3 +1,7 @@
+var codigo = "";
+var solucion ="";
+var tipoConsulta = "";
+var idEstado = "";
 //signOut
 function signOut() {
 	cerrarSesion();
@@ -98,19 +102,54 @@ $(document)
 							}
 						});		
 						codigo = $("#codigo").val();
-						horaInicio = $("#horaInicio").val();
-						horaFinal = $("#horaFinal").val();
-						dia = $("#dia").val();
-						if (codigo == ""){
-							tipoConsulta = "crear";
-						}else{
-							tipoConsulta = "actualizar";
-						}
+						idEstado = $("#selectEstado").select2("val");
+						solucion = $("#solucion").val();
+						tipoConsulta = "crearSolucion";
 						if(retorno){
-							enviarDatos(codigo, horaInicio, horaFinal, dia, tipoConsulta);
-						}
+							enviarDatos(codigo, idEstado, solucion, tipoConsulta);
+						}			
 					});
 				/* Fin Controles Grabar Resgistro*/
+					function enviarDatos(codigo, idEstado, solucion, tipoConsulta){
+						$.ajax({
+							url : '../sti/IncidenciaController',
+							data : {
+								"codigo" : codigo,
+								"idEstado" : idEstado,
+								"solucion" : solucion,
+								"tipoConsulta": tipoConsulta
+							},
+							type : 'POST',
+							datatype : 'json',
+							success : function(data) {
+								if(data.success){
+									$("#msgPopup").show();
+								}else{
+									alert(data.error);
+								}
+							}
+						});
+					}
+					
+					
+					
+					//Cargar select2 estados
+					$.ajax({
+						url : '../sti/IncidenciaController',
+						data : {
+							"tipoConsulta" : "cargarEstados"
+						},
+						type : 'post',
+						datatype : 'json',
+						success : function (data) {
+							var estados = data.listadoEstados;	
+							$('.select2Estado').select2({
+								data : estados,
+								minimumResultsForSearch: Infinity,
+								placeholder : 'Seleccione un estado'
+							});												
+						}
+					});//Fin carga tecnicos
 					
 
-				});
+				});//Fin ready

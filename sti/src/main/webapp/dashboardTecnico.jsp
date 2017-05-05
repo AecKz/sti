@@ -19,11 +19,13 @@
 
 <!-- Custom styling plus plugins -->
 <link href="css/custom.css" rel="stylesheet">
+<link href="css/select2/select2.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/controladores/dashboardCoordinador.js"></script>
+<script src="js/select2/select2.js"></script>
+<script src="js/controladores/dashboardTecnico.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -238,6 +240,11 @@
 								<input type="text"class="form-control" disabled id="titulo">
 								<label>Descripci&oacute;n</label> 
 								<input type="text"class="form-control" disabled id="descripcion">
+								<label>Estado</label> 
+								<br>
+								<select class="select2Estado form-control" id="selectEstado" style="width:100%;"></select>
+								<label>Descripci&oacute;n</label> 
+								<input type="text" class="form-control" id="solucion">
 							</div>
 						</div>
 						<div class="modal-footer">

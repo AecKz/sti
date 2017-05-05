@@ -17,10 +17,12 @@ import net.sf.json.JSONObject;
 import tigre.sti.dao.EstadoDAO;
 import tigre.sti.dao.IncidenciaDAO;
 import tigre.sti.dao.ServicioDAO;
+import tigre.sti.dao.SolucionDAO;
 import tigre.sti.dao.UsuarioDAO;
 import tigre.sti.dto.Estado;
 import tigre.sti.dto.Incidencia;
 import tigre.sti.dto.Servicio;
+import tigre.sti.dto.Solucion;
 import tigre.sti.dto.Usuario;
 import tigre.sti.util.Utilitarios;
 
@@ -60,6 +62,8 @@ public class IncidenciaController extends HttpServlet {
 		JSONObject incidenciasJSONObject = new JSONObject();
 		JSONArray tecnicosJSONArray = new JSONArray();
 		JSONObject tecnicosJSONObject = new JSONObject();
+		JSONArray estadosJSONArray = new JSONArray();
+		JSONObject estadosJSONObject = new JSONObject();
 		ServicioDAO servicioDAO = new ServicioDAO();
 		IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -74,7 +78,10 @@ public class IncidenciaController extends HttpServlet {
 			String tipoContacto = request.getParameter("tipoContacto") == null ? "" : request.getParameter("tipoContacto");
 			String titulo = request.getParameter("titulo") == null ? "" : request.getParameter("titulo");
 			String descripcion = request.getParameter("descripcion") == null ? "" : request.getParameter("descripcion");
-			
+			String codigo = request.getParameter("codigo") == null ? "" : request.getParameter("codigo");
+			String idTecnico = request.getParameter("idTecnico") == null ? "" : request.getParameter("idTecnico");
+			String idEstado = request.getParameter("idEstado") == null ? "" : request.getParameter("idEstado");
+			String descripcionSolucion = request.getParameter("solucion") == null ? "" : request.getParameter("solucion");
 			HttpSession session = request.getSession();
 			
 			if(idServicio.equals("") && session.getAttribute("idServicio")!= null){
@@ -183,9 +190,6 @@ public class IncidenciaController extends HttpServlet {
 			}
 			
 			if (tipoConsulta.equals("cargarTecnicos")) {
-//				Rol rol = new Rol();
-//				RolDAO rolDAO = new RolDAO();
-//				rol = rolDAO.buscarPorId(4);
 				List<Usuario> tecnicos = usuarioDAO.buscarTodosPorRol(4);
 				for(Usuario tecnico: tecnicos){
 					tecnicosJSONObject.put("id", tecnico.getIdUsuario());
@@ -196,6 +200,43 @@ public class IncidenciaController extends HttpServlet {
 				result.put("listadoTecnicos", tecnicosJSONArray);
 			}
 			
+			if (tipoConsulta.equals("cargarEstados")) {
+				List<Estado> estados = estadoDAO.buscarTodos();
+				for(Estado estado: estados){
+					estadosJSONObject.put("id", estado.getIdEstado());
+					estadosJSONObject.put("text", estado.getNombre());
+					estadosJSONArray.add(estadosJSONObject);
+				}
+				result.put("listadoEstados", estadosJSONArray);
+			}
+			
+			if(tipoConsulta.equals("asignarTecnicoIncidencia")){
+				Incidencia incidencia = new Incidencia();
+				incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(codigo));
+				Usuario usuario1 = new Usuario();
+				usuario1 = usuarioDAO.buscarPorId(Integer.parseInt(idTecnico));
+				incidencia.setUsuario1(usuario1);
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(6);
+				incidencia.setEstado(estado);
+				incidenciaDAO.editar(incidencia);				
+			}	
+			
+			if(tipoConsulta.equals("crearSolucion")){
+				SolucionDAO solucionDAO = new SolucionDAO();
+				Solucion solucion = new Solucion();
+				Incidencia incidencia = new Incidencia();
+				incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(codigo));
+				solucion.setIncidencia(incidencia);
+				Date date = new Date();
+				solucion.setFecha(new Timestamp(date.getTime()));
+				solucion.setDescripcion(descripcionSolucion);
+				solucionDAO.crear(solucion);
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(Integer.parseInt(idEstado));
+				incidencia.setEstado(estado);
+				incidenciaDAO.editar(incidencia);				
+			}
 
 			result.put("success", Boolean.TRUE);
 			response.setContentType("application/json; charset=UTF-8");

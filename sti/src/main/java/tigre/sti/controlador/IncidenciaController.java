@@ -20,7 +20,6 @@ import tigre.sti.dao.ServicioDAO;
 import tigre.sti.dao.UsuarioDAO;
 import tigre.sti.dto.Estado;
 import tigre.sti.dto.Incidencia;
-import tigre.sti.dto.Rol;
 import tigre.sti.dto.Servicio;
 import tigre.sti.dto.Usuario;
 import tigre.sti.util.Utilitarios;
@@ -163,19 +162,38 @@ public class IncidenciaController extends HttpServlet {
 				result.put("listadoIncidencias", incidenciasJSONArray);
 			}
 			
+			if(tipoConsulta.equals("busquedaIncidenciasActivasTecnico")){
+				Usuario usuario = new Usuario();
+				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
+				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioResponsable(usuario);
+				for(Incidencia incidencia: incidencias){
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFecha());
+					incidenciasJSONObject.put("fecha", fechaTurno);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			
 			if (tipoConsulta.equals("cargarTecnicos")) {
-				Rol rol = new Rol();
-				rol.setIdRol(4);
-				List<Usuario> tecnicos = usuarioDAO.buscarTodosPorRol(rol);
+//				Rol rol = new Rol();
+//				RolDAO rolDAO = new RolDAO();
+//				rol = rolDAO.buscarPorId(4);
+				List<Usuario> tecnicos = usuarioDAO.buscarTodosPorRol(4);
 				for(Usuario tecnico: tecnicos){
-					tecnicosJSONObject.put("codigo", tecnico.getIdUsuario());
-					tecnicosJSONObject.put("nombre", tecnico.getPersona().getNombres() 
+					tecnicosJSONObject.put("id", tecnico.getIdUsuario());
+					tecnicosJSONObject.put("text", tecnico.getPersona().getNombres() 
 							+ " " + tecnico.getPersona().getApellidos());
 					tecnicosJSONArray.add(tecnicosJSONObject);
 				}
-				result.put("numRegistros", (tecnicosJSONArray.size()));
 				result.put("listadoTecnicos", tecnicosJSONArray);
-
 			}
 			
 

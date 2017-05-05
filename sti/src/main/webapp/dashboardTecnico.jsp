@@ -19,12 +19,10 @@
 
 <!-- Custom styling plus plugins -->
 <link href="css/custom.css" rel="stylesheet">
-<link href="css/select2/select2.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/select2/select2.js"></script>
 <script src="js/controladores/dashboardCoordinador.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
@@ -45,7 +43,10 @@
 				response.sendRedirect("/sti/dashboardAdministrador.jsp");
 			} else if (session.getAttribute("rol").equals("usuario")) {
 				response.sendRedirect("/sti/dashboard.jsp");
+			} else if (session.getAttribute("rol").equals("coordinador")) {
+				response.sendRedirect("/sti/dashboardCoordinador.jsp");
 			}
+			
 		}
 	%>
 	<div class="container body">
@@ -62,7 +63,7 @@
 						class="main_menu_side hidden-print main_menu">
 
 						<div class="menu_section">
-							<h3>Coordinador</h3>
+							<h3>Técnico</h3>
 							<ul class="nav side-menu" id="menuLateral">
 							<li><a href="#"><i class="fa fa-tasks"></i>Incidencias</a>
 								</li>
@@ -237,9 +238,6 @@
 								<input type="text"class="form-control" disabled id="titulo">
 								<label>Descripci&oacute;n</label> 
 								<input type="text"class="form-control" disabled id="descripcion">
-								<label>T&eacute;cnico</label> 
-								<br>
-								<select class="select2Tecnico form-control" id="selectTecnico" style="width:100%;"></select>
 							</div>
 						</div>
 						<div class="modal-footer">

@@ -37,7 +37,7 @@ $(document)
 					$.ajax({
 						url : '../sti/IncidenciaController',
 						data : {
-							"tipoConsulta" : "busquedaIncidenciasActivas"
+							"tipoConsulta" : "busquedaIncidenciasActivasTecnico"
 						},
 						type : 'POST',
 						datatype : 'json',
@@ -111,24 +111,6 @@ $(document)
 						}
 					});
 				/* Fin Controles Grabar Resgistro*/
-				
-				//Cargar select2 tecnicos
-					$.ajax({
-						url : '../sti/IncidenciaController',
-						data : {
-							"tipoConsulta" : "cargarTecnicos"
-						},
-						type : 'post',
-						datatype : 'json',
-						success : function (data) {
-							var tecnicos = data.listadoTecnicos;	
-							$('.select2Tecnico').select2({
-								data : tecnicos,
-								minimumResultsForSearch: Infinity,
-								placeholder : 'Seleccione un técnico'
-							});												
-						}
-					});//Fin carga tecnicos
 					
 
-				});//Fin ready
+				});

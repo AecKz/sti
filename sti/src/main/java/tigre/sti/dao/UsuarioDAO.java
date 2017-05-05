@@ -5,9 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
-import tigre.sti.dto.Rol;
 import tigre.sti.dto.Usuario;
+import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
 
 public class UsuarioDAO extends EntityManagerFactoryDAO {
 	public Usuario crear(Usuario objeto) {
@@ -143,15 +142,16 @@ public class UsuarioDAO extends EntityManagerFactoryDAO {
 	 * @param rol
 	 * @return Lista Usuario
 	 * */
-	public List<Usuario> buscarTodosPorRol(Rol rol) {
+	public List<Usuario> buscarTodosPorRol(int idRol) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		List<Usuario> usuarios = null;
 		try {
 			TypedQuery<Usuario> query = em.createQuery(
-					"SELECT u FROM Usuario u "
-					+ "where u.rol = :rol", Usuario.class)
-					.setParameter("rol", rol);
-			usuarios = query.getResultList();					
+					"SELECT u FROM Usuario u " 
+					+ "JOIN FETCH u.rol r " 
+					+ "where r.idRol = :idRol ",
+					Usuario.class).setParameter("idRol", idRol);
+			usuarios = query.getResultList();
 			return usuarios;
 		} catch (Exception e) {
 			em.getTransaction().rollback();

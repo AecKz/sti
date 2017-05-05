@@ -120,5 +120,20 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 			em.close();
 		}
 	}
+	
+	public List<Incidencia> buscarPorUsuarioResponsable(Usuario usuario) {
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = estadoDAO.buscarPorId(1);
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		try {
+			TypedQuery<Incidencia> query = em.createQuery(
+					"SELECT c FROM Incidencia c JOIN FETCH c.usuario1 p  where c.usuario1= :usuario1 and c.estado = :estado", Incidencia.class)
+					.setParameter("usuario1", usuario).setParameter("estado", estado);
+			List<Incidencia> results = query.getResultList();			
+			return results;		
+		} finally {
+			em.close();
+		}
+	}
 
 }

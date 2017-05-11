@@ -19,14 +19,19 @@
 
 <!-- Custom styling plus plugins -->
 <link href="css/custom.css" rel="stylesheet">
+<link href="css/loading.css" rel="stylesheet">
+<link href="css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/controladores/dashboardAdministrador.js"></script>
+<script src="js/controladores/mantenimientoUsuarios.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+<!-- Data Tables -->
+<script src="js/dataTables/jquery.dataTables.js"></script>
+<script src="js/dataTables/dataTables.bootstrap.js"></script>
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
 </head>
@@ -42,8 +47,10 @@
 				response.sendRedirect("/sti/dashboard.jsp");
 			} else if (session.getAttribute("rol").equals("coordinador")) {
 				response.sendRedirect("/sti/dashboardCoordinador.jsp");
+			} else if (session.getAttribute("rol").equals("tecnico")) {
+				response.sendRedirect("/sti/dashboardTecnico.jsp");
 			}
-		}
+		}		
 	%>
 	<div class="container body">
 		<div class="main_container">
@@ -204,7 +211,7 @@
 			<!-- /top navigation -->
 
 
-			<!-- page content -->
+<!-- page content -->
 			<div class="right_col" role="main">
 
 				<div class="row">
@@ -213,21 +220,105 @@
 
 							<div class="row x_title">
 								<div>
-									<h3>Bienvenido (a) a Global Services de Tigre</h3>
+									<h3>Mantenimiento de los Usuarios</h3>
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
-								<ul id="menuCentral">
-								</ul>
-								<!-- 								<div class="x_content"></div> -->
+							<div class="x_content">
+								<div class="row crud-nav-bar">
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary" data-toggle="modal" data-target="#add" id="addButton">
+			<span class="glyphicon glyphicon-plus"></span> &nbsp; Nuevo
+		</button>
 
+		<!-- Modal -->
+		<div class="modal fade" id="add" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id="formCrud">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Usuario</h4>
+						</div>
+						<div class="modal-body">
+							<div class="alert alert-success" id="msgPopup">El Usuario se ha guardado correctamente.</div>
+							<div class="form-group">
+								<input type="hidden"class="form-control" id="codigo">
+								<label>Nombres</label> 
+								<input type="text"class="form-control required" id="nombres">
+								<label>Apellidos</label> 
+								<input type="text"class="form-control required" id="apellidos">
+								<label>Direcci&oacute;n</label> 
+								<input type="text"class="form-control" id="direccion">
+								<label>Email</label> 
+								<input type="text"class="form-control required" id="email">
+								<label>Tel&eacute;fono</label> 
+								<input type="text"class="form-control" id="telefono">
+								<label>Usuario</label> 
+								<input type="text"class="form-control" id="usuario">
+								<label>Rol</label> 
+								<br>
+								<select class="select2Rol form-control" id="selectRol" style="width:100%;"></select>								
 							</div>
 						</div>
-
-					</div>
-					<br />
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" id="close-popup"
+								data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary" id="save-record">Guardar</button>
+						</div>
+					</form>
 				</div>
-				<!-- /page content -->
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+							<!-- Datatable -->
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="table-responsive">	
+									<div class="input-group"> <span class="input-group-addon">Filtro</span>
+										    <input id="filter" type="text" class="form-control" placeholder="Escriba la palabra a buscar...">
+										</div>		
+										<table class="table table-striped table-bordered table-hover"
+											id="dataTable">
+											<thead>
+												<tr>
+													<th>Nombres</th>
+													<th>Apellidos</th>
+													<th>Direcci&oacute;n</th>
+													<th>Email</th>
+													<th>Tel&eacute;fono</th>
+													<th>Usuario</th>
+													<th>Rol</th>																										
+													<th></th>
+												</tr>
+											</thead>
+											<tbody id="dataTableContent" class="searchable">	
+											<div id="loading">
+												<div class="loading-indicator">
+													<img src="images/ajax-loader.gif"/><br /><br />
+													<span id="loading-msg">Cargando...</span>
+												</div>					
+											</div>									
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- Datatable -->			
+
+
+               			 	</div>
+						</div>
+					</div>
+
+				</div>
+				<br />
+			</div>
+			<!-- /page content -->
 
 			</div>
 

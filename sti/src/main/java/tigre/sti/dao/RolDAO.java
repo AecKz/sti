@@ -89,4 +89,22 @@ public class RolDAO extends EntityManagerFactoryDAO {
 			em.close();
 		}
 	}
+	public Rol buscarPorNombre(String nombreRol) {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		Rol rol = new Rol();
+		try {
+			TypedQuery<Rol> query = em
+					.createQuery("SELECT c FROM Rol c where c.rol = :rol ", Rol.class)
+					.setParameter("rol", nombreRol);
+			List<Rol> results = query.getResultList();
+			rol = results.get(0);
+			return rol;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println(e.getMessage());
+			return rol;
+		} finally {
+			em.close();
+		}
+	}
 }

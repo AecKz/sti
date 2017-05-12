@@ -76,7 +76,7 @@
 										</li>
 										<li><a href="mantenimientoCategorias.jsp">Categorias</a>
 										</li>
-										<li><a href="#">Servicios</a>
+										<li><a href="mantenimientoServicios.jsp">Servicios</a>
 										</li>										
 									</ul>
 								</li>

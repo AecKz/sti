@@ -72,6 +72,21 @@ public class UsuarioDAO extends EntityManagerFactoryDAO {
 			em.close();
 		}
 	}
+	
+	public List<Usuario> buscarTodosCompleto() {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		try {
+			TypedQuery<Usuario> query = em.createQuery(
+					 "SELECT u FROM Usuario u "
+					+"JOIN FETCH u.persona p "
+					+"JOIN FETCH u.rol r " 
+					+"order by u.usuario", Usuario.class);
+			List<Usuario> results = query.getResultList();
+			return results;
+		} finally {
+			em.close();
+		}
+	}
 
 	public Usuario buscarPorId(int id) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();

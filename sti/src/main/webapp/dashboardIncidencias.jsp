@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE>
@@ -19,19 +20,16 @@
 
 <!-- Custom styling plus plugins -->
 <link href="css/custom.css" rel="stylesheet">
-<link href="css/select2/select2.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/select2/select2.js"></script>
-<script src="js/controladores/dashboardTecnico.js"></script>
+<script src="js/controladores/registrarIncidencia.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
-<script src="js/util.js"></script>
 </head>
 
 
@@ -42,13 +40,12 @@
 			response.sendRedirect("/sti/index.jsp");
 		} else {
 			if (session.getAttribute("rol").equals("administrador")) {
-				response.sendRedirect("/sti/dashboardAdministrador.jsp");
-			} else if (session.getAttribute("rol").equals("usuario")) {
-				response.sendRedirect("/sti/dashboard.jsp");
+				response.sendRedirect("/dashboardAdministrador.jsp");
 			} else if (session.getAttribute("rol").equals("coordinador")) {
-				response.sendRedirect("/sti/dashboardCoordinador.jsp");
+				response.sendRedirect("/dashboardCoordinador.jsp");
 			}
-			
+			String var = request.getParameter("var");
+			session.setAttribute("idServicio", var);
 		}
 	%>
 	<div class="container body">
@@ -59,16 +56,14 @@
 					<div class="navbar nav_title" style="border: 0;">
 						<a href="dashboard.jsp" class="site_title"><i
 							class="fa fa-paw"></i> <span>STI</span></a>
-					</div>					
+					</div>
 					<!-- sidebar menu -->
 					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 
 						<div class="menu_section">
-							<h3>Técnico</h3>
+							<h3 id="tituloLateral">Servicio</h3>
 							<ul class="nav side-menu" id="menuLateral">
-							<li><a href="#"><i class="fa fa-tasks"></i>Incidencias</a>
-								</li>
 							</ul>
 						</div>
 					</div>
@@ -114,7 +109,7 @@
 									<li><a href="dashboard.jsp"> Inicio</a></li>
 									<li><a href="datosUsuario.jsp"> <!--                       <span class="badge bg-red pull-right">50%</span> -->
 											<span>Perfil</span>
-									</a></li>									
+									</a></li>
 									<li><a href="index.jsp" onclick="signOut();"><i
 											class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 								</ul></li>
@@ -209,75 +204,122 @@
 
 							<div class="row x_title">
 								<div>
-									<h3>Bienvenido (a) a Global Services de Tigre</h3>
+									<h3 id="lblTitulo">Servicio</h3>
+									<h5 id="lblSubtitulo">Descripcion</h5>
+									<h5 id="lblServicio"></h5>
 								</div>
 							</div>
-							<!-- Button trigger modal -->
-		<button class="btn btn-primary" data-toggle="modal" data-target="#add" id="addButton2">
-			<span class="glyphicon glyphicon-plus"></span> &nbsp; Nuevo
-		</button>
-							<!-- Modal -->
-		<div class="modal fade" id="add" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form id="formCrud">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
-							</button>
-							<h4 class="modal-title" id="myModalLabel">Gestionar Incidencia</h4>
-						</div>
-						<div class="modal-body">
-							<div class="alert alert-success" id="msgPopup">Se ha guardado correctamente.</div>
-							<div class="form-group">
-								<input type="hidden"class="form-control" id="codigo">
-								<label>Categor&iacute;a</label> 
-								<input type="text"class="form-control" disabled id="categoria">
-								<label>Servicio</label> 
-								<input type="text"class="form-control" disabled id="servicio">
-								<label>T&iacute;tulo</label> 
-								<input type="text"class="form-control" disabled id="titulo">
-								<label>Descripci&oacute;n</label> 
-								<input type="text"class="form-control" disabled id="descripcion">
-								<label>Estado</label> 
-								<br>
-								<select class="select2Estado form-control" id="selectEstado" style="width:100%;"></select>
-								<label>Descripci&oacute;n</label> 
-								<input type="text" class="form-control" id="solucion">
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" id="close-popup"
-								data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary" id="save-record">Guardar</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal -->
-							
 							<div class="col-md-12 col-sm-12 col-xs-12">
-							<h4>Incidencias Pendientes</h4>
-							<!-- tablas de Incidencias Abiertas-->
-							<table id="tblIncidencias" class="table">
-							 <thead>
-								<tr>
-								<th>FECHA</th>
-								<th>CATEGORIA</th>
-								<th>SERVICIO</th>
-								<th>TÍTULO</th>
-								<th>DESCRIPCIÓN</th>
-								<th>SOLICITANTE</th>
-								<th></th>								
-								</tr>
-							</thead>
-							<tbody id="contentIncidencias"></tbody>
-							</table>
-					   <!-- final tablas de turnos reservados-->
-	
+								<form class="form-horizontal">
+									<fieldset>
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtSolicitante">Solicitante</label>
+											<div class="col-md-4">
+												<input id="txtSolicitante" name="txtSolicitante" type="text"
+													disabled class="form-control input-md">
+
+											</div>
+										</div>
+										<!-- Text input-->
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtEmail">Correo
+												Electrónico</label>
+											<div class="col-md-4">
+												<input id="txtEmail" name="txtEmail" type="text" disabled
+													class="form-control input-md" required>
+
+											</div>
+										</div>
+
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtExtension">Extensión</label>
+											<div class="col-md-4">
+												<input id="txtExtension" name="txtExtension" type="text"
+													disabled class="form-control input-md">
+
+											</div>
+										</div>
+
+										<!-- Text input-->
+<!-- 										<div class="form-group"> -->
+<!-- 											<label class="col-md-4 control-label" for="txtInscripcion">Inscripción -->
+<!-- 												(Registro)</label> -->
+<!-- 											<div class="col-md-4"> -->
+<!-- 												<input id="txtInscripcion" name="txtInscripcion" type="text" -->
+<!-- 													placeholder="" class="form-control input-md"> -->
+
+<!-- 											</div> -->
+<!-- 										</div> -->
+
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtTelefono">Teléfono
+												Alternativo</label>
+											<div class="col-md-4">
+												<input id="txtTelefono" name="txtTelefono" type="text"
+													placeholder="" class="form-control input-md" required>
+
+											</div>
+										</div>
+
+										<!-- Select Basic -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="selContacto">Tipo
+												de Contacto</label>
+											<div class="col-md-4">
+												<select id="selContacto" name="selContacto"
+													class="form-control">
+													<option value="Portal">Portal</option>
+													<option value="Correo Electrónico">Correo
+														Electrónico</option>
+													<option value="Teléfono">Teléfono</option>
+													<option value="Monitoring">Monitoring</option>
+													<option value="Chat">Chat</option>
+												</select>
+											</div>
+										</div>
+
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtTitulo">Título</label>
+											<div class="col-md-4">
+												<input id="txtTitulo" name="txtTitulo" type="text"
+													placeholder="" class="form-control input-md" required>
+
+											</div>
+										</div>
+
+										<!-- Textarea -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtDescripcion">Descripción</label>
+											<div class="col-md-4">
+												<textarea class="form-control" id="txtDescripcion"
+													name="txtDescripcion"></textarea>
+											</div>
+										</div>
+
+										<!-- File Button -->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="fbtnAdjunto">Agregar
+												archivos adjuntos</label>
+											<div class="col-md-4">
+												<input id="fbtnAdjunto" name="fbtnAdjunto"
+													class="input-file" type="file">
+											</div>
+										</div>
+									</fieldset>
+								</form>
+								<!-- Button -->
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="btnEnviar"></label>
+									<div class="col-md-4">
+										<button id="btnEnviar" type="submit" name="btnEnviar"
+											class="btn btn-primary" onclick="crearIncidencia();">Enviar</button>
+									</div>
+								</div>
 							</div>
 						</div>
 

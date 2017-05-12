@@ -210,7 +210,7 @@
 								</div>
 							</div>
 							<!-- Button trigger modal -->
-		<button class="btn btn-primary" data-toggle="modal" data-target="#add" id="addButton">
+		<button class="btn btn-primary" data-toggle="modal" data-target="#add" id="addButton2">
 			<span class="glyphicon glyphicon-plus"></span> &nbsp; Nuevo
 		</button>
 							<!-- Modal -->

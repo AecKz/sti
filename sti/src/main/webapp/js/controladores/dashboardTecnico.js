@@ -67,7 +67,7 @@ $(document)
 							
 							/* Inicio Controles Actualizar Registro*/
 							$(".actualizar-btn").bind({click: function() {
-									$("#addButton").trigger("click");
+									$("#addButton2").trigger("click");
 									$("#codigo").val($(this).parent().children().first().val());
 									var elem = $(this).parent();
 									var bandera = 1;

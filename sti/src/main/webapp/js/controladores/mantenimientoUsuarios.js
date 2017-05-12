@@ -43,6 +43,24 @@ $(document)
 							$('#txtUsuarioCabecera').text(nombreCompleto);
 						}
 					});
+					//Cargar select2 roles
+					$.ajax({
+						url : '../sti/MantenimientoUsuarioController',
+						data : {
+							"tipoConsulta" : "cargarRol"
+						},
+						type : 'post',
+						datatype : 'json',
+						success : function (data) {
+							var roles = data.listadoRoles;	
+							$('.select2Rol').select2({
+								data : roles,
+								minimumResultsForSearch: Infinity,
+								placeholder : 'Seleccione un rol'
+							});												
+						}
+					});//Fin carga tecnicos
+					
 					//Cargar Usuarios
 					$.ajax({
 						url : '../sti/MantenimientoUsuarioController',
@@ -62,7 +80,6 @@ $(document)
 											" <td relation='direccion'>"+ listadoUsuarios[index].direccion +"</td>" +
 											" <td relation='telefono'>"+ listadoUsuarios[index].telefono +"</td>" +
 											" <td relation='email'>"+ listadoUsuarios[index].email +"</td>" +
-											" <td relation='descripcion'>"+ listadoUsuarios[index].descripcion +"</td>" +
 											" <td relation='usuario'>"+ listadoUsuarios[index].usuario +"</td>" +
 											" <td relation='rol'>"+ listadoUsuarios[index].rol +"</td>" +
 											" <td width='175px'>" +
@@ -99,7 +116,7 @@ $(document)
 								
 								/* Inicio Controles Eliminar Registro */
 								$(".eliminar-btn").bind({click: function() {
-										var r = confirm("Seguro que desea eliminar la categoria: " + $(this).parent().parent().children().first().text());
+										var r = confirm("Seguro que desea eliminar el Usuario: " + $(this).parent().parent().children().first().text());
 										if (r == true){
 											codigo = $(this).parent().children().first().val();
 											nombre = ""; descripcion = ""; 
@@ -136,7 +153,7 @@ $(document)
 							telefono = $("#telefono").val();
 							email = $("#email").val();
 							usuario = $("#usuario").val();							
-							rol = $("#rol").val();
+							rol = $("#rol").select2("val");
 							if (codigo == ""){
 								tipoConsulta = "crear";
 							}else{
@@ -150,7 +167,7 @@ $(document)
 					
 					function enviarDatos(codigo, nombres, apellidos, direccion, telefono, email, usuario, rol, tipoConsulta){
 						$.ajax({
-							url : '../TratamientoController',
+							url : '../sti/MantenimientoUsuarioController',
 							data : {
 								"codigo" : codigo,
 								"nombres" : nombres,

@@ -63,7 +63,7 @@ public class RolDAO extends EntityManagerFactoryDAO {
 	public List<Rol> buscarTodos() {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<Rol> query = em.createQuery("SELECT e FROM Rol e order by e.nombre", Rol.class);
+			TypedQuery<Rol> query = em.createQuery("SELECT e FROM Rol e order by e.rol", Rol.class);
 			List<Rol> results = query.getResultList();
 			return results;
 		} finally {

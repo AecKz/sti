@@ -54,7 +54,7 @@ public class MantenimientoUsuarioController extends HttpServlet {
 			String idUsuario = request.getParameter("codigo") == null ? ""
 					: request.getParameter("codigo");
 			String nombres = request.getParameter("nombres") == null ? ""
-					: request.getParameter("nombre");
+					: request.getParameter("nombres");
 			String apellidos = request.getParameter("apellidos") == null ? ""
 					: request.getParameter("apellidos");			
 			String direccion = request.getParameter("direccion") == null ? ""
@@ -76,6 +76,8 @@ public class MantenimientoUsuarioController extends HttpServlet {
 			Rol rolDTO = new Rol();			
 			JSONObject usuarioJSONObject = new JSONObject();
 			JSONArray usuarioJSONArray = new JSONArray();
+			JSONObject rolJSONObject = new JSONObject();
+			JSONArray rolJSONArray = new JSONArray();
 			
 			if (!idUsuario.equals("")){
 				usuarioDTO.setIdUsuario(Integer.parseInt(idUsuario));
@@ -99,7 +101,7 @@ public class MantenimientoUsuarioController extends HttpServlet {
 				usuarioDTO.setUsuario(usuario);
 			}
 			if(!rol.equals("")){
-				rolDTO = rolDAO.buscarPorNombre(rol);				
+				rolDTO = rolDAO.buscarPorId(Integer.parseInt(rol));				
 			}
 			
 			//Usuarios
@@ -132,12 +134,22 @@ public class MantenimientoUsuarioController extends HttpServlet {
 			}
 			if (tipoConsulta.equals("crear")) {
 				persona = personaDAO.crear(persona);
-				usuarioDTO.setPersona(persona);				
-				rolDTO = rolDAO.buscarPorNombre(rol);
+				usuarioDTO.setPersona(persona);
 				usuarioDTO.setRol(rolDTO);
 				usuarioDTO.setClave("123");
 				usuarioDAO.crear(usuarioDTO);
 			}
+			//Cargar Rol
+			if (tipoConsulta.equals("cargarRol")) {
+				List<Rol> roles = rolDAO.buscarTodos();
+				for(Rol resultado: roles){
+					rolJSONObject.put("id", resultado.getIdRol());
+					rolJSONObject.put("text", resultado.getRol());
+					rolJSONArray.add(rolJSONObject);
+				}
+				result.put("listadoRoles", rolJSONArray);
+			}
+			
 			result.put("success", Boolean.TRUE);
 			response.setContentType("application/json; charset=UTF-8");
 			result.write(response.getWriter());

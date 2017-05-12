@@ -19,12 +19,15 @@
 
 <!-- Custom styling plus plugins -->
 <link href="css/custom.css" rel="stylesheet">
+<link href="css/select2/select2.css" rel="stylesheet">
 <link href="css/loading.css" rel="stylesheet">
 <link href="css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/select2/select2.js"></script>
 <script src="js/custom.js"></script>
+<script src="js/util.js"></script>
 <script src="js/controladores/mantenimientoUsuarios.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
@@ -261,7 +264,7 @@
 								<input type="text"class="form-control" id="usuario">
 								<label>Rol</label> 
 								<br>
-								<select class="select2Rol form-control" id="selectRol" style="width:100%;"></select>								
+								<select class="select2Rol form-control" id="rol" style="width:100%;"></select>								
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -289,8 +292,8 @@
 													<th>Nombres</th>
 													<th>Apellidos</th>
 													<th>Direcci&oacute;n</th>
-													<th>Email</th>
 													<th>Tel&eacute;fono</th>
+													<th>Email</th>													
 													<th>Usuario</th>
 													<th>Rol</th>																										
 													<th></th>

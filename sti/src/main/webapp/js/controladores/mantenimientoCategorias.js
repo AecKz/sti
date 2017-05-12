@@ -134,7 +134,7 @@ $(document)
 					
 					function enviarDatos(codigo, nombre, descripcion, tipoConsulta){
 						$.ajax({
-							url : '../TratamientoController',
+							url : '../sti/MantenimientoCategoriaController',
 							data : {
 								"codigo" : codigo,
 								"nombre" : nombre,

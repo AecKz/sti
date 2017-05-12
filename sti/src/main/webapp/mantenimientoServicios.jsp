@@ -25,6 +25,7 @@
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
+<script src="js/util.js"></script>
 <script src="js/controladores/mantenimientoUsuarios.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>

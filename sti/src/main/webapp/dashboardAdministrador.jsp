@@ -34,16 +34,18 @@
 
 <body class="nav-md">
 	<%
-		// Permitimos el acceso si la session existe		
-		if (session.getAttribute("login") == null) {
-			response.sendRedirect("/sti/index.jsp");
-		} else {
-			if (session.getAttribute("rol").equals("usuario")) {
-				response.sendRedirect("/sti/dashboard.jsp");
-			} else if (session.getAttribute("rol").equals("coordinador")) {
-				response.sendRedirect("/sti/dashboardCoordinador.jsp");
-			}
-		}
+	// Permitimos el acceso si la session existe		
+			if (session.getAttribute("login") == null) {
+				response.sendRedirect("/sti/index.jsp");
+			} else {
+				if (session.getAttribute("rol").equals("usuario")) {
+					response.sendRedirect("/sti/dashboard.jsp");
+				} else if (session.getAttribute("rol").equals("coordinador")) {
+					response.sendRedirect("/sti/dashboardCoordinador.jsp");
+				} else if (session.getAttribute("rol").equals("tecnico")) {
+					response.sendRedirect("/sti/dashboardTecnico.jsp");
+				}
+			}	
 	%>
 	<div class="container body">
 		<div class="main_container">
@@ -69,7 +71,7 @@
 										</li>
 										<li><a href="mantenimientoCategorias.jsp">Categorias</a>
 										</li>
-										<li><a href="#">Servicios</a>
+										<li><a href="mantenimientoServicios.jsp">Servicios</a>
 										</li>										
 									</ul>
 								</li>

@@ -19,14 +19,16 @@
 
 <!-- Custom styling plus plugins -->
 <link href="css/custom.css" rel="stylesheet">
+<link href="css/select2/select2.css" rel="stylesheet">
 <link href="css/loading.css" rel="stylesheet">
 <link href="css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/select2/select2.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/util.js"></script>
-<script src="js/controladores/mantenimientoUsuarios.js"></script>
+<script src="js/controladores/mantenimientoServicios.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -77,7 +79,7 @@
 										</li>
 										<li><a href="mantenimientoCategorias.jsp">Categorias</a>
 										</li>
-										<li><a href="#">Servicios</a>
+										<li><a href="mantenimientoServicios.jsp">Servicios</a>
 										</li>										
 									</ul>
 								</li>
@@ -221,7 +223,7 @@
 
 							<div class="row x_title">
 								<div>
-									<h3>Mantenimiento de los Usuarios</h3>
+									<h3>Mantenimiento de los Servicios</h3>
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
@@ -242,27 +244,22 @@
 							<button type="button" class="close" data-dismiss="modal">
 								<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">Usuario</h4>
+							<h4 class="modal-title" id="myModalLabel">Servicio</h4>
 						</div>
 						<div class="modal-body">
-							<div class="alert alert-success" id="msgPopup">El Usuario se ha guardado correctamente.</div>
+							<div class="alert alert-success" id="msgPopup">El Servicio se ha guardado correctamente.</div>
 							<div class="form-group">
 								<input type="hidden"class="form-control" id="codigo">
-								<label>Nombres</label> 
-								<input type="text"class="form-control required" id="nombres">
-								<label>Apellidos</label> 
-								<input type="text"class="form-control required" id="apellidos">
-								<label>Direcci&oacute;n</label> 
-								<input type="text"class="form-control" id="direccion">
-								<label>Email</label> 
-								<input type="text"class="form-control required" id="email">
-								<label>Tel&eacute;fono</label> 
-								<input type="text"class="form-control" id="telefono">
-								<label>Usuario</label> 
-								<input type="text"class="form-control" id="usuario">
-								<label>Rol</label> 
+								<label>Nombre</label> 
+								<input type="text"class="form-control required" id="nombre">
+								<label>Descripcion</label> 
+								<input type="text"class="form-control required" id="descripcion">
+								<label>Categoria</label> 
 								<br>
-								<select class="select2Rol form-control" id="selectRol" style="width:100%;"></select>								
+								<select class="select2Categoria form-control" id="categoria" style="width:100%;"></select>
+								<label>Servicio Padre</label> 
+								<br>
+								<select class="select2Servicio form-control" id="servicioP" style="width:100%;"></select>								
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -287,13 +284,10 @@
 											id="dataTable">
 											<thead>
 												<tr>
-													<th>Nombres</th>
-													<th>Apellidos</th>
-													<th>Direcci&oacute;n</th>
-													<th>Email</th>
-													<th>Tel&eacute;fono</th>
-													<th>Usuario</th>
-													<th>Rol</th>																										
+													<th>Nombre</th>
+													<th>Descripci&oacute;n</th>
+													<th>Categoria</th>
+													<th>Servicio Padre</th>
 													<th></th>
 												</tr>
 											</thead>

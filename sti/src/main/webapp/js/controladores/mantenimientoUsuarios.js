@@ -59,7 +59,7 @@ $(document)
 								placeholder : 'Seleccione un rol'
 							});												
 						}
-					});//Fin carga tecnicos
+					});//Fin carga roles
 					
 					//Cargar Usuarios
 					$.ajax({

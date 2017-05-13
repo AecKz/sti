@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import tigre.sti.dao.CategoriaDAO;
+import tigre.sti.dao.ServicioDAO;
 import tigre.sti.dto.Categoria;
+import tigre.sti.dto.Servicio;
 
 /**
  * Servlet implementation class IndexController
  */
-@WebServlet("/MantenimientoCategoriaController")
+@WebServlet("/MantenimientoServicioController")
 public class MantenimientoServicioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,48 +49,93 @@ public class MantenimientoServicioController extends HttpServlet {
 		try {
 			String tipoConsulta = request.getParameter("tipoConsulta") == null ? ""
 					: request.getParameter("tipoConsulta");
-			String idCategoria = request.getParameter("codigo") == null ? ""
+			String idServicio = request.getParameter("codigo") == null ? ""
 					: request.getParameter("codigo");
 			String nombre = request.getParameter("nombre") == null ? ""
 					: request.getParameter("nombre").toUpperCase();
 			String descripcion = request.getParameter("descripcion") == null ? ""
-					: request.getParameter("descripcion").toUpperCase();	
+					: request.getParameter("descripcion").toUpperCase();
+			String categoria = request.getParameter("categoria") == null ? ""
+					: request.getParameter("categoria");
+			String servicioP = request.getParameter("servicioP") == null ? ""
+					: request.getParameter("servicioP");
+			
 			CategoriaDAO categoriaDAO = new CategoriaDAO();
-			Categoria categoria = new Categoria();
+			Categoria categoriaDTO = new Categoria();
+			ServicioDAO servicioDAO = new ServicioDAO();
+			Servicio servicioDTO = new Servicio();
 			JSONObject categoriaJSONObject = new JSONObject();
 			JSONArray categoriaJSONArray = new JSONArray();
+			JSONObject servicioJSONObject = new JSONObject();
+			JSONArray servicioJSONArray = new JSONArray();
+			JSONObject servicioPadreJSONObject = new JSONObject();
+			JSONArray servicioPadreJSONArray = new JSONArray();
 			
-			if (!idCategoria.equals("")){
-				categoria.setIdCategoria(Integer.parseInt(idCategoria));
+			if (!idServicio.equals("")){
+				servicioDTO.setIdServicio(Integer.parseInt(idServicio));
 			}
 			if (!nombre.equals("")){
-				categoria.setNombre(nombre);
+				servicioDTO.setNombre(nombre);
 			}
 			if (!descripcion.equals("")){
-				categoria.setDescripcion(descripcion);
+				servicioDTO.setDescripcion(descripcion);
 			}
-			
-			//Categorias
-			if (tipoConsulta.equals("consultarCategorias")) {
-				List<Categoria> results = categoriaDAO.buscarTodos();
-				for(Categoria resultado: results){
-					categoriaJSONObject.put("codigo", resultado.getIdCategoria());
-					categoriaJSONObject.put("nombre", resultado.getNombre());
-					categoriaJSONObject.put("descripcion", resultado.getDescripcion());										
+			if (!categoria.equals("")){
+				categoriaDTO = categoriaDAO.buscarPorId(Integer.parseInt(categoria));
+				servicioDTO.setCategoria(categoriaDTO);
+			}
+			if (!servicioP.equals("")){
+				Servicio servicioPadre = new Servicio();
+				servicioPadre = servicioDAO.buscarPorId(Integer.parseInt(servicioP));
+				servicioDTO.setServicio(servicioPadre);
+			}
+			// Cargar combos
+			//Cargar Categoria
+			if (tipoConsulta.equals("cargarCategorias")) {
+				List<Categoria> categorias = categoriaDAO.buscarTodos();
+				for(Categoria resultado: categorias){
+					categoriaJSONObject.put("id", resultado.getIdCategoria());
+					categoriaJSONObject.put("text", resultado.getNombre());
 					categoriaJSONArray.add(categoriaJSONObject);
 				}
-				result.put("numRegistros", results.size());
 				result.put("listadoCategorias", categoriaJSONArray);
+			}
+			//Cargar Rol
+			if (tipoConsulta.equals("cargarServiciosPadre")) {
+				List<Servicio> serviciosP = servicioDAO.buscarTodos();
+				for(Servicio resultado: serviciosP){
+					servicioPadreJSONObject.put("id", resultado.getIdServicio());
+					servicioPadreJSONObject.put("text", resultado.getNombre());
+					servicioPadreJSONArray.add(servicioPadreJSONObject);
+				}
+				result.put("listadoServiciosPadre", servicioPadreJSONArray);
+			}
+			
+			
+			//Servicios
+			if (tipoConsulta.equals("consultarServicios")) {
+				List<Servicio> results = servicioDAO.buscarTodos();
+				for(Servicio resultado: results){
+					servicioJSONObject.put("codigo", resultado.getIdServicio());
+					servicioJSONObject.put("nombre", resultado.getNombre());
+					servicioJSONObject.put("descripcion", resultado.getDescripcion());
+					servicioJSONObject.put("categoria", resultado.getCategoria().getNombre());
+					servicioJSONObject.put("servicioP", 
+							(resultado.getServicio()!= null)?resultado.getServicio().getNombre(): "Ninguno");
+					servicioJSONArray.add(servicioJSONObject);
+				}
+				result.put("numRegistros", results.size());
+				result.put("listadoServicios", servicioJSONArray);
 			}
 
 			if (tipoConsulta.equals("actualizar")) {
-				categoriaDAO.editar(categoria);
+				servicioDAO.editar(servicioDTO);
 			}
 			if (tipoConsulta.equals("eliminar")) {
-				categoriaDAO.eliminar(categoria);
+				servicioDAO.eliminar(servicioDTO);
 			}
 			if (tipoConsulta.equals("crear")) {
-				categoriaDAO.crear(categoria);
+				servicioDAO.crear(servicioDTO);
 			}
 			result.put("success", Boolean.TRUE);
 			response.setContentType("application/json; charset=UTF-8");

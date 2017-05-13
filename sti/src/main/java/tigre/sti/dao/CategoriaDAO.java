@@ -72,7 +72,7 @@ public class CategoriaDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Categoria buscarPorId(String id) {
+	public Categoria buscarPorId(int id) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		Categoria categoria = new Categoria();
 		try {

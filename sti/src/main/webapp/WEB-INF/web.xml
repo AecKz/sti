@@ -55,4 +55,25 @@
 		<servlet-name>tigre.sti.controlador.MantenimientoServicioController</servlet-name>
 		<url-pattern>/MantenimientoServicioController</url-pattern>
 	</servlet-mapping>
+	
+	<!-- SMTP settings -->
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>paajacome@udlanet.ec</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>ClAex616</param-value>
+    </context-param>
 </web-app>

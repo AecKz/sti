@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,19 @@ import tigre.sti.util.Utilitarios;
 @WebServlet("/IncidenciaController")
 public class IncidenciaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String host;
+	private String port;
+	private String user;
+	private String pass;
+
+	public void init() {
+		// reads SMTP server setting from web.xml file
+		ServletContext context = getServletContext();
+		host = context.getInitParameter("host");
+		port = context.getInitParameter("port");
+		user = context.getInitParameter("user");
+		pass = context.getInitParameter("pass");
+	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -129,6 +143,13 @@ public class IncidenciaController extends HttpServlet {
 				incidencia.setTitulo(titulo);
 				incidencia.setDescripcion(descripcion);				
 				incidenciaDAO.crear(incidencia);
+				//Enviar Email
+				String toAddress = usuarioReporta.getPersona().getEmail();
+				String subject = "Incidencia Creada";
+				String message = "<i>Saludos!</i><br>";
+			        message += "<b>Se ha creado una incidencia!</b><br>";
+			        message += "<font color=red>STI</font>";
+				Utilitarios.sendEmail(host, port, user, pass, toAddress, subject, message);
 			}
 			if(tipoConsulta.equals("busquedaIncidenciasActivas")){
 				Estado estado = new Estado();

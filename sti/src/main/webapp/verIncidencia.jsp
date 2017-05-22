@@ -24,7 +24,7 @@
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/controladores/registrarIncidencia.js"></script>
+<script src="js/controladores/verIncidencia.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -43,9 +43,11 @@
 				response.sendRedirect("/dashboardAdministrador.jsp");
 			} else if (session.getAttribute("rol").equals("coordinador")) {
 				response.sendRedirect("/dashboardCoordinador.jsp");
+			} else if (session.getAttribute("rol").equals("tecnico")) {
+				response.sendRedirect("/dashboardTecnico.jsp");
 			}
 			String var = request.getParameter("var");
-			session.setAttribute("idServicio", var);
+			session.setAttribute("idIncidencia", var);
 		}
 	%>
 	<div class="container body">
@@ -62,9 +64,7 @@
 						class="main_menu_side hidden-print main_menu">
 
 						<div class="menu_section">
-							<h3 id="tituloLateral">Servicio</h3>
-							<ul class="nav side-menu" id="menuLateral">
-							</ul>
+							<h3 id="tituloLateral">Incidencia</h3>							
 						</div>
 					</div>
 					<!-- /sidebar menu -->
@@ -260,7 +260,7 @@
 												Alternativo</label>
 											<div class="col-md-4">
 												<input id="txtTelefono" name="txtTelefono" type="text"
-													placeholder="" class="form-control input-md" required>
+													placeholder="" class="form-control input-md" disabled>
 
 											</div>
 										</div>
@@ -271,7 +271,7 @@
 												de Contacto</label>
 											<div class="col-md-4">
 												<select id="selContacto" name="selContacto"
-													class="form-control">
+													class="form-control" disabled>
 													<option value="Portal">Portal</option>
 													<option value="Correo Electrónico">Correo
 														Electrónico</option>
@@ -287,7 +287,7 @@
 											<label class="col-md-4 control-label" for="txtTitulo">Título</label>
 											<div class="col-md-4">
 												<input id="txtTitulo" name="txtTitulo" type="text"
-													placeholder="" class="form-control input-md" required>
+													placeholder="" class="form-control input-md" disabled>
 
 											</div>
 										</div>
@@ -297,28 +297,19 @@
 											<label class="col-md-4 control-label" for="txtDescripcion">Descripción</label>
 											<div class="col-md-4">
 												<textarea class="form-control" id="txtDescripcion"
-													name="txtDescripcion"></textarea>
+													name="txtDescripcion" disabled></textarea>
 											</div>
 										</div>
 
-										<!-- File Button -->
-										<div class="form-group">
-											<label class="col-md-4 control-label" for="fbtnAdjunto">Agregar
-												archivos adjuntos</label>
-											<div class="col-md-4">
-												<input id="fbtnAdjunto" name="fbtnAdjunto"
-													class="input-file" type="file">
-											</div>
-										</div>
 									</fieldset>
 								</form>
 								<!-- Button -->
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="btnEnviar"></label>
-									<div class="col-md-4">
-										<button id="btnEnviar" type="submit" name="btnEnviar"
-											class="btn btn-primary" onclick="crearIncidencia();">Enviar</button>
-									</div>
+<!-- 									<label class="col-md-4 control-label" for="btnEnviar"></label> -->
+<!-- 									<div class="col-md-4"> -->
+<!-- 										<button id="btnEnviar" type="submit" name="btnEnviar" -->
+<!-- 											class="btn btn-primary" onclick="crearIncidencia();">Enviar</button> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 						</div>

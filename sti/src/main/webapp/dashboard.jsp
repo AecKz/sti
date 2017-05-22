@@ -120,7 +120,7 @@
 							                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
 												<li>
 	            									<div class="text-center">
-	              									<a><strong>Ver todos</strong>
+	              									<a href="incidencias.jsp"><strong>Ver todos</strong>
 		                							<i class="fa fa-angle-right"></i>
 		              								</a></div>
 		          								</li>

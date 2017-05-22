@@ -15,6 +15,9 @@ function cerrarSesion() {
 		}
 	});
 }
+function cargarIncidencia(idIncidencia) {
+	window.location = "verIncidencia.jsp?var="+idIncidencia;
+}
 function cargarServicios(idCategoria) {
 	$("#menuCentral").empty();
 	$

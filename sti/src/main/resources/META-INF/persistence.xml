@@ -9,6 +9,8 @@
 		<class>tigre.sti.dto.Servicio</class>
 		<class>tigre.sti.dto.Solucion</class>
 		<class>tigre.sti.dto.Usuario</class>
+		<class>tigre.sti.dto.Prioridad</class>
+		<class>tigre.sti.dto.Etapa</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sti"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

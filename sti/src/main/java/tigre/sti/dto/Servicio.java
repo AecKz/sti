@@ -22,6 +22,10 @@ public class Servicio implements Serializable {
 
 	private String nombre;
 
+	//bi-directional many-to-one association to Incidencia
+	@OneToMany(mappedBy="servicio")
+	private List<Incidencia> incidencias;
+
 	//bi-directional many-to-one association to Categoria
 	@ManyToOne
 	@JoinColumn(name="idCategoria")
@@ -35,10 +39,6 @@ public class Servicio implements Serializable {
 	//bi-directional many-to-one association to Servicio
 	@OneToMany(mappedBy="servicio")
 	private List<Servicio> servicios;
-
-	//bi-directional many-to-one association to Incidencia
-	@OneToMany(mappedBy="servicio")
-	private List<Incidencia> incidencias;
 
 	public Servicio() {
 	}
@@ -65,6 +65,28 @@ public class Servicio implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Incidencia> getIncidencias() {
+		return this.incidencias;
+	}
+
+	public void setIncidencias(List<Incidencia> incidencias) {
+		this.incidencias = incidencias;
+	}
+
+	public Incidencia addIncidencia(Incidencia incidencia) {
+		getIncidencias().add(incidencia);
+		incidencia.setServicio(this);
+
+		return incidencia;
+	}
+
+	public Incidencia removeIncidencia(Incidencia incidencia) {
+		getIncidencias().remove(incidencia);
+		incidencia.setServicio(null);
+
+		return incidencia;
 	}
 
 	public Categoria getCategoria() {
@@ -103,28 +125,6 @@ public class Servicio implements Serializable {
 		servicio.setServicio(null);
 
 		return servicio;
-	}
-
-	public List<Incidencia> getIncidencias() {
-		return this.incidencias;
-	}
-
-	public void setIncidencias(List<Incidencia> incidencias) {
-		this.incidencias = incidencias;
-	}
-
-	public Incidencia addIncidencia(Incidencia incidencia) {
-		getIncidencias().add(incidencia);
-		incidencia.setServicio(this);
-
-		return incidencia;
-	}
-
-	public Incidencia removeIncidencia(Incidencia incidencia) {
-		getIncidencias().remove(incidencia);
-		incidencia.setServicio(null);
-
-		return incidencia;
 	}
 
 }

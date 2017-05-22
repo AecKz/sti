@@ -134,7 +134,7 @@ public class IncidenciaController extends HttpServlet {
 				estado= estadoDAO.buscarPorId(1);				
 				incidencia.setEstado(estado);
 				Date date = new Date();
-				incidencia.setFecha(new Timestamp(date.getTime()));
+				incidencia.setFechaInicio(new Timestamp(date.getTime()));
 				incidencia.setServicio(servicio);
 				usuarioReporta = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);				
 				incidencia.setUsuario2(usuarioReporta);
@@ -156,7 +156,7 @@ public class IncidenciaController extends HttpServlet {
 				estado = estadoDAO.buscarPorId(1);
 				List<Incidencia> incidencias = incidenciaDAO.buscarPorEstado(estado);
 				for(Incidencia incidencia: incidencias){
-					String fechaTurno = Utilitarios.dateToString(incidencia.getFecha());
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
 					incidenciasJSONObject.put("fecha", fechaTurno);
 					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
 					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
@@ -179,7 +179,7 @@ public class IncidenciaController extends HttpServlet {
 				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
 				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioSolicitante(usuario);
 				for(Incidencia incidencia: incidencias){
-					String fechaTurno = Utilitarios.dateToString(incidencia.getFecha());
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
 					incidenciasJSONObject.put("fecha", fechaTurno);
 					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
 					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
@@ -195,7 +195,7 @@ public class IncidenciaController extends HttpServlet {
 				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
 				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioResponsable(usuario);
 				for(Incidencia incidencia: incidencias){
-					String fechaTurno = Utilitarios.dateToString(incidencia.getFecha());
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
 					incidenciasJSONObject.put("fecha", fechaTurno);
 					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
 					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());

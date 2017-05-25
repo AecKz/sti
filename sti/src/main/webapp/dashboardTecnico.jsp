@@ -276,10 +276,50 @@
 							</thead>
 							<tbody id="contentIncidencias"></tbody>
 							</table>
-					   <!-- final tablas de turnos reservados-->
+					   <!-- final tablas de Incidencias Abiertas-->
 	
 							</div>
+
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<h4>Incidencias en Progreso</h4>
+							<!-- tablas de Incidencias Progreso-->
+							<table id="tblProgreso" class="table">
+								<thead>
+									<tr>
+										<th>FECHA</th>
+										<th>CATEGORIA</th>
+										<th>SERVICIO</th>
+										<th>TÍTULO</th>
+										<th>DESCRIPCIÓN</th>
+										<th>SOLICITANTE</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="contentProgreso"></tbody>
+							</table>
+							<!-- final tablas de Incidencias Progreso-->
+
 						</div>
+
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<h4>Incidencias Resueltas</h4>
+							<table id="tblResueltas" class="table">
+								<thead>
+									<tr>
+										<th>FECHA</th>
+										<th>CATEGORIA</th>
+										<th>SERVICIO</th>
+										<th>TÍTULO</th>
+										<th>DESCRIPCIÓN</th>
+										<th>SOLICITANTE</th>
+										<th>ESTADO</th>
+									</tr>
+								</thead>
+								<tbody id="contentResueltas"></tbody>
+							</table>
+
+						</div>
+					</div>
 
 					</div>
 					<br />

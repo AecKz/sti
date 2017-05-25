@@ -271,9 +271,28 @@
 							</thead>
 							<tbody id="contentIncidencias"></tbody>
 							</table>
-					   <!-- final tablas de turnos reservados-->
+							</div>
+							
+							<div class="col-md-12 col-sm-12 col-xs-12">
+							<h4>Incidencias Asignadas</h4>
+							<!-- tablas de Incidencias Asignadas-->
+							<table id="tblAsignadas" class="table">
+							 <thead>
+								<tr>
+								<th>FECHA</th>
+								<th>CATEGORIA</th>
+								<th>SERVICIO</th>
+								<th>TÍTULO</th>
+								<th>DESCRIPCIÓN</th>
+								<th>SOLICITANTE</th>
+								<th>ASIGNADO</th>								
+								</tr>
+							</thead>
+							<tbody id="contentAsignadas"></tbody>
+							</table>
 	
 							</div>
+							
 						</div>
 
 					</div>

@@ -2,6 +2,7 @@ package tigre.sti.controlador;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -75,6 +76,8 @@ public class IncidenciaController extends HttpServlet {
 		JSONObject result = new JSONObject();
 		JSONArray incidenciasJSONArray = new JSONArray();
 		JSONObject incidenciasJSONObject = new JSONObject();
+		JSONArray asignadasJSONArray = new JSONArray();
+		JSONObject asignadasJSONObject = new JSONObject();
 		ServicioDAO servicioDAO = new ServicioDAO();
 		IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -159,6 +162,27 @@ public class IncidenciaController extends HttpServlet {
 				result.put("numRegistros", (incidenciasJSONArray.size()));
 				result.put("listadoIncidencias", incidenciasJSONArray);
 			}
+			if(tipoConsulta.equals("busquedaIncidenciasAsignadas")){
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(6);
+				List<Incidencia> incidencias = incidenciaDAO.buscarPorEstado(estado);
+				for(Incidencia incidencia: incidencias){
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
+					asignadasJSONObject.put("fecha", fechaTurno);
+					asignadasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					asignadasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					asignadasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					asignadasJSONObject.put("titulo", incidencia.getTitulo());
+					asignadasJSONObject.put("descripcion", incidencia.getDescripcion());
+					asignadasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					asignadasJSONObject.put("asignado", incidencia.getUsuario1().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario1().getPersona().getApellidos());
+					asignadasJSONArray.add(asignadasJSONObject);
+				}
+				result.put("numRegistros", (asignadasJSONArray.size()));
+				result.put("listadoAsignadas", asignadasJSONArray);
+			}
 			if(tipoConsulta.equals("cargarDatosIncidencia")){
 				Incidencia incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(idIncidencia));
 				result.put("telefonoContacto", incidencia.getTelefonoContacto());
@@ -226,7 +250,7 @@ public class IncidenciaController extends HttpServlet {
 			if(tipoConsulta.equals("busquedaIncidenciasActivasTecnico")){
 				Usuario usuario = new Usuario();
 				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
-				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioResponsable(usuario);
+				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioResponsable(usuario,6);
 				for(Incidencia incidencia: incidencias){
 					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
 					incidenciasJSONObject.put("fecha", fechaTurno);
@@ -237,6 +261,51 @@ public class IncidenciaController extends HttpServlet {
 					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
 					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
 							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			if(tipoConsulta.equals("busquedaIncidenciasProgresoTecnico")){
+				Usuario usuario = new Usuario();
+				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
+				List<Incidencia> incProgreso = incidenciaDAO.buscarPorUsuarioResponsable(usuario,5);
+				for(Incidencia incidencia: incProgreso){
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
+					incidenciasJSONObject.put("fecha", fechaTurno);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			if(tipoConsulta.equals("busquedaIncidenciasResueltasTecnico")){
+				Usuario usuario = new Usuario();
+				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
+				List<Incidencia> incResueltas = incidenciaDAO.buscarPorUsuarioResponsable(usuario,2);
+				List<Incidencia> incCanceladas = incidenciaDAO.buscarPorUsuarioResponsable(usuario,3);
+				List<Incidencia> incidencias = new ArrayList<Incidencia>();
+				incidencias.addAll(incResueltas);
+				incidencias.addAll(incCanceladas);
+				for(Incidencia incidencia: incidencias){
+					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
+					incidenciasJSONObject.put("fecha", fechaTurno);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
 					incidenciasJSONArray.add(incidenciasJSONObject);
 				}
 				result.put("numRegistros", (incidenciasJSONArray.size()));
@@ -280,7 +349,11 @@ public class IncidenciaController extends HttpServlet {
 			}
 			if(tipoConsulta.equals("cambiarEstadoIncidencia")){
 				Incidencia incidencia = new Incidencia();
-				incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(idIncidencia));
+				if(!idIncidencia.equals("")){
+					incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(idIncidencia));
+				}else{
+					incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(codigo));	
+				}
 				if(Integer.parseInt(idEstado) == 5){ // En progreso
 					Etapa etapa = new Etapa();
 					etapa = etapaDAO.buscarPorId(3); // En proceso

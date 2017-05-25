@@ -127,7 +127,6 @@ $(document)
 							}
 						});
 					}
-					
 				
 				//Cargar select2 tecnicos
 					$.ajax({
@@ -146,6 +145,37 @@ $(document)
 							});												
 						}
 					});//Fin carga tecnicos
+					
+					// Cargar Incidencias activas
+					$.ajax({
+						url : '../sti/IncidenciaController',
+						data : {
+							"tipoConsulta" : "busquedaIncidenciasAsignadas"
+						},
+						type : 'POST',
+						datatype : 'json',
+						success : function(data) {
+							if(data.numRegistros > 0){
+								var listadoAsignadas = data.listadoAsignadas;
+								$.each(listadoAsignadas, function(index){
+									$("#contentAsignadas").append("	<tr class='odd gradeX'>" +
+											" <td relation='fecha'>"+ listadoAsignadas[index].fecha +"</td>" +
+											" <td relation='categoria'>"+ listadoAsignadas[index].categoria +"</td>" +
+											" <td relation='servicio'>"+ listadoAsignadas[index].servicio +"</td>" +
+											" <td relation='titulo'>"+ listadoAsignadas[index].titulo +"</td>" +
+											" <td relation='descripcion'>"+ listadoAsignadas[index].descripcion +"</td>" +
+											" <td relation='solicitante'>"+ listadoAsignadas[index].solicitante +"</td>" +
+											" <td relation='asignado'>"+ listadoAsignadas[index].asignado +"</td>" +
+											" <td width='175px'>" +
+											" <input type='hidden' value='"+ listadoAsignadas[index].codigo +"'/>" +
+										"</td>" +
+										"</tr>");						
+								});							
+							}else{
+								$("#contentAsignadas").append("<tr><td colspan='4'>No existen Registros</td></tr>");
+							}
+						}
+					});// Fin Cargar Incidencias asignadas
 					
 
 				});//Fin ready

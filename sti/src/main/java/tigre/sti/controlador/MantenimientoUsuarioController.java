@@ -99,7 +99,9 @@ public class MantenimientoUsuarioController extends HttpServlet {
 			}
 			if(!usuario.equals("")){
 				usuarioDTO.setUsuario(usuario);
+				usuarioDTO.setClave("123"); //TODO: Mantenimiento personal de usuario y clave
 			}
+			
 			if(!rol.equals("")){
 				rolDTO = rolDAO.buscarPorId(Integer.parseInt(rol));				
 			}
@@ -133,11 +135,18 @@ public class MantenimientoUsuarioController extends HttpServlet {
 				personaDAO.eliminar(persona);
 			}
 			if (tipoConsulta.equals("crear")) {
-				persona = personaDAO.crear(persona);
-				usuarioDTO.setPersona(persona);
-				usuarioDTO.setRol(rolDTO);
-				usuarioDTO.setClave("123");
-				usuarioDAO.crear(usuarioDTO);
+				Persona auxPersona = new Persona();
+				auxPersona = personaDAO.buscarPorEmail(email);
+				if(auxPersona == null){
+					persona = personaDAO.crear(persona);
+					usuarioDTO.setPersona(persona);
+					usuarioDTO.setRol(rolDTO);
+					usuarioDTO.setClave("123");
+					usuarioDAO.crear(usuarioDTO);
+				}else{
+					result.put("success", Boolean.FALSE);
+					result.put("error", "La persona ya existe!");
+				}
 			}
 			//Cargar Rol
 			if (tipoConsulta.equals("cargarRol")) {

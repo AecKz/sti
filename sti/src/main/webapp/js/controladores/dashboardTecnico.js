@@ -135,9 +135,9 @@ $(document)
 					
 					//Cargar select2 estados
 					$.ajax({
-						url : '../sti/IncidenciaController',
+						url : '../sti/CatalogosController',
 						data : {
-							"tipoConsulta" : "cargarEstados"
+							"tipoConsulta" : "cargarEstadosTecnico"
 						},
 						type : 'post',
 						datatype : 'json',

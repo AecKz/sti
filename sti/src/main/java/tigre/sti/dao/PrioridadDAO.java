@@ -1,16 +1,15 @@
 package tigre.sti.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import tigre.sti.dto.Estado;
+import tigre.sti.dto.Prioridad;
 import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
 
-public class EstadoDAO extends EntityManagerFactoryDAO {
-	public Estado crear(Estado objeto) {
+public class PrioridadDAO extends EntityManagerFactoryDAO {
+	public Prioridad crear(Prioridad objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -28,7 +27,7 @@ public class EstadoDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Estado editar(Estado objeto) {
+	public Prioridad editar(Prioridad objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -44,11 +43,11 @@ public class EstadoDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Estado eliminar(Estado objeto) {
+	public Prioridad eliminar(Prioridad objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Estado EntidadToBeRemoved = em.getReference(Estado.class, objeto.getIdEstado());
+			Prioridad EntidadToBeRemoved = em.getReference(Prioridad.class, objeto.getIdPrioridad());
 			em.remove(EntidadToBeRemoved);
 			em.getTransaction().commit();
 			return objeto;
@@ -61,48 +60,31 @@ public class EstadoDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public List<Estado> buscarTodos() {
+	public List<Prioridad> buscarTodos() {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<Estado> query = em.createQuery("SELECT e FROM Estado e order by e.nombre", Estado.class);
-			List<Estado> results = query.getResultList();
-			return results;
-		} finally {
-			em.close();
-		}
-	}
-	
-	public List<Estado> buscarEstadosTecnico() {
-		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		List<Integer> lista = new ArrayList<Integer>();
-		lista.add(2);
-		lista.add(3);
-		lista.add(5);
-		try {
-			TypedQuery<Estado> query = 
-					em.createQuery("SELECT e FROM Estado e where e.idEstado in :lista", Estado.class)
-					.setParameter("lista", lista);
-			List<Estado> results = query.getResultList();
+			TypedQuery<Prioridad> query = em.createQuery("SELECT e FROM Prioridad e order by e.nombre", Prioridad.class);
+			List<Prioridad> results = query.getResultList();
 			return results;
 		} finally {
 			em.close();
 		}
 	}
 
-	public Estado buscarPorId(int id) {
+	public Prioridad buscarPorId(int id) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		Estado estado = new Estado();
+		Prioridad prioridad = new Prioridad();
 		try {
-			TypedQuery<Estado> query = em
-					.createQuery("SELECT c FROM Estado c where c.idEstado = :idEstado ", Estado.class)
-					.setParameter("idEstado", id);
-			List<Estado> results = query.getResultList();
-			estado = results.get(0);
-			return estado;
+			TypedQuery<Prioridad> query = em
+					.createQuery("SELECT c FROM Prioridad c where c.idPrioridad = :idPrioridad ", Prioridad.class)
+					.setParameter("idPrioridad", id);
+			List<Prioridad> results = query.getResultList();
+			prioridad = results.get(0);
+			return prioridad;
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println(e.getMessage());
-			return estado;
+			return prioridad;
 		} finally {
 			em.close();
 		}

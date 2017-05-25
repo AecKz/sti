@@ -131,7 +131,7 @@ $(document)
 				
 				//Cargar select2 tecnicos
 					$.ajax({
-						url : '../sti/IncidenciaController',
+						url : '../sti/CatalogosController',
 						data : {
 							"tipoConsulta" : "cargarTecnicos"
 						},

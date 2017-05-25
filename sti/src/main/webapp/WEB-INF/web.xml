@@ -47,13 +47,21 @@
 		<servlet-name>tigre.sti.controlador.MantenimientoUsuarioController</servlet-name>
 		<url-pattern>/MantenimientoUsuarioController</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>tigre.sti.controlador.MantenimientoServicioController</servlet-name>
 		<servlet-class>tigre.sti.controlador.MantenimientoServicioController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>tigre.sti.controlador.MantenimientoServicioController</servlet-name>
 		<url-pattern>/MantenimientoServicioController</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.CatalogosController</servlet-name>
+		<servlet-class>tigre.sti.controlador.CatalogosController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.CatalogosController</servlet-name>
+		<url-pattern>/CatalogosController</url-pattern>
 	</servlet-mapping>
 	
 	<!-- SMTP settings -->

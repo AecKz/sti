@@ -113,80 +113,21 @@
 									<li><a href="index.jsp" onclick="signOut();"><i
 											class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 								</ul></li>
-							<!-- 					correos -->
-							<!--               <li role="presentation" class="dropdown"> -->
-							<!--                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> -->
-							<!--                   <i class="fa fa-envelope-o"></i> -->
-							<!--                   <span class="badge bg-green">6</span> -->
-							<!--                 </a> -->
-							<!--                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu"> -->
-							<!--                   <li> -->
-							<!--                     <a> -->
-							<!--                       <span class="image"> -->
-							<!--                                         <img src="images/img.jpg" alt="Profile Image" /> -->
-							<!--                                     </span> -->
-							<!--                       <span> -->
-							<!--                                         <span>John Smith</span> -->
-							<!--                       <span class="time">3 mins ago</span> -->
-							<!--                       </span> -->
-							<!--                       <span class="message"> -->
-							<!--                                         Film festivals used to be do-or-die moments for movie makers. They were where... -->
-							<!--                                     </span> -->
-							<!--                     </a> -->
-							<!--                   </li> -->
-							<!--                   <li> -->
-							<!--                     <a> -->
-							<!--                       <span class="image"> -->
-							<!--                                         <img src="images/img.jpg" alt="Profile Image" /> -->
-							<!--                                     </span> -->
-							<!--                       <span> -->
-							<!--                                         <span>John Smith</span> -->
-							<!--                       <span class="time">3 mins ago</span> -->
-							<!--                       </span> -->
-							<!--                       <span class="message"> -->
-							<!--                                         Film festivals used to be do-or-die moments for movie makers. They were where... -->
-							<!--                                     </span> -->
-							<!--                     </a> -->
-							<!--                   </li> -->
-							<!--                   <li> -->
-							<!--                     <a> -->
-							<!--                       <span class="image"> -->
-							<!--                                         <img src="images/img.jpg" alt="Profile Image" /> -->
-							<!--                                     </span> -->
-							<!--                       <span> -->
-							<!--                                         <span>John Smith</span> -->
-							<!--                       <span class="time">3 mins ago</span> -->
-							<!--                       </span> -->
-							<!--                       <span class="message"> -->
-							<!--                                         Film festivals used to be do-or-die moments for movie makers. They were where... -->
-							<!--                                     </span> -->
-							<!--                     </a> -->
-							<!--                   </li> -->
-							<!--                   <li> -->
-							<!--                     <a> -->
-							<!--                       <span class="image"> -->
-							<!--                                         <img src="images/img.jpg" alt="Profile Image" /> -->
-							<!--                                     </span> -->
-							<!--                       <span> -->
-							<!--                                         <span>John Smith</span> -->
-							<!--                       <span class="time">3 mins ago</span> -->
-							<!--                       </span> -->
-							<!--                       <span class="message"> -->
-							<!--                                         Film festivals used to be do-or-die moments for movie makers. They were where... -->
-							<!--                                     </span> -->
-							<!--                     </a> -->
-							<!--                   </li> -->
-							<!--                   <li> -->
-							<!--                     <div class="text-center"> -->
-							<!--                       <a> -->
-							<!--                         <strong>See All Alerts</strong> -->
-							<!--                         <i class="fa fa-angle-right"></i> -->
-							<!--                       </a> -->
-							<!--                     </div> -->
-							<!--                   </li> -->
-							<!--                 </ul> -->
-							<!--               </li> -->
-							<!-- fincorreos -->
+							              <li role="presentation" class="dropdown">
+							                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+							                  <i class="fa fa-envelope-o"></i>
+							                  <span class="badge bg-green" id="contadorIncidencias">1</span>
+							                </a>
+							                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
+												<li>
+	            									<div class="text-center">
+	              									<a href="incidencias.jsp"><strong>Ver todos</strong>
+		                							<i class="fa fa-angle-right"></i>
+		              								</a></div>
+		          								</li>
+							                </ul>
+							              </li>	
+							              <li><a href="dashboard.jsp" >Catálogo de servicios</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -281,6 +222,22 @@
 												</select>
 											</div>
 										</div>
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtPrioridad">Prioridad</label>
+											<div class="col-md-4">
+												<input id="txtPrioridad" name="txtPrioridad" type="text"
+													placeholder="" class="form-control input-md" disabled>
+											</div>
+										</div>
+										<!-- Text input-->
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="txtEstado">Estado</label>
+											<div class="col-md-4">
+												<input id="txtEstado" name="txtEstado" type="text"
+													placeholder="" class="form-control input-md" disabled>
+											</div>
+										</div>
 
 										<!-- Text input-->
 										<div class="form-group">
@@ -305,11 +262,16 @@
 								</form>
 								<!-- Button -->
 								<div class="form-group">
-<!-- 									<label class="col-md-4 control-label" for="btnEnviar"></label> -->
-<!-- 									<div class="col-md-4"> -->
-<!-- 										<button id="btnEnviar" type="submit" name="btnEnviar" -->
-<!-- 											class="btn btn-primary" onclick="crearIncidencia();">Enviar</button> -->
+									<label class="col-md-4 control-label" for="btnReabrir"></label>
+									<div class="col-md-4">
+										<button id="btnReabrir" type="submit" name="btnReabrir"
+											class="btn btn-primary" onclick="reAbrirIncidencia();">Reabrir</button>
 <!-- 									</div> -->
+<!-- 									<label class="col-md-4 control-label" for="btnCerrar"></label> -->
+<!-- 									<div class="col-md-4"> -->
+										<button id="btnCerrar" type="submit" name="btnCerrar"
+											class="btn btn-primary" onclick="cerrarIncidencia();">Cerrar</button>
+									</div>
 								</div>
 							</div>
 						</div>

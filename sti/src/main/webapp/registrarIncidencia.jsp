@@ -20,7 +20,9 @@
 
 <!-- Custom styling plus plugins -->
 <link href="css/custom.css" rel="stylesheet">
+<link href="css/select2/select2.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
+<script src="js/select2/select2.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/custom.js"></script>
@@ -281,7 +283,14 @@
 												</select>
 											</div>
 										</div>
-
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="selectPrioridad">Prioridad</label>
+											<div class="col-md-4">
+												<select
+													class="select2Prioridad form-control" id="selectPrioridad"
+													style="width: 100%;"></select>
+											</div>
+										</div>
 										<!-- Text input-->
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="txtTitulo">Título</label>

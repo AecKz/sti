@@ -11,11 +11,42 @@ function cerrarSesion() {
 		type : 'POST',
 		datatype : 'json',
 		success : function(data) {
-			alert("Sesion cerrada correctamente");
 		}
 	});
 }
-
+function reAbrirIncidencia(){
+	$.ajax({
+		url : '../sti/IncidenciaController',
+		data : {
+			"tipoConsulta" : "cambiarEstadoIncidencia",
+			"idEstado": 5
+		},
+		type : 'POST',
+		datatype : 'json',
+		success : function(data) {
+			alert("Incidencia Reabierta");
+			window.location = "dashboard.jsp";
+		}
+	});
+}
+function cerrarIncidencia(){
+	$.ajax({
+		url : '../sti/IncidenciaController',
+		data : {
+			"tipoConsulta" : "cambiarEstadoIncidencia",
+			"idEstado": 4
+		},
+		type : 'POST',
+		datatype : 'json',
+		success : function(data) {
+			alert("Incidencia Cerrada");
+			window.location = "dashboard.jsp";
+		}
+	});
+}
+function cargarIncidencia(idIncidencia) {
+	window.location = "verIncidencia.jsp?var="+idIncidencia;
+}
 // Carga inicial
 $(document).ready(
 		function() {
@@ -44,12 +75,48 @@ $(document).ready(
 				type : 'POST',
 				datatype : 'json',
 				success : function(data) {
+					debugger;
 					$('#lblTitulo').text(data.nombreServicio);
 					$('#lblSubtitulo').text(data.descripcionServicio);
 					$('#txtTelefono').val(data.telefonoContacto);
 					$('#selContacto').val(data.tipoContacto);
 					$('#txtTitulo').val(data.titulo);
-					$('#txtDescripcion').text(data.descripcion);
+					$('#txtEstado').val(data.estado);
+					$('#txtPrioridad').text(data.prioridad);
+					$('#txtDescripcion').text(data.descripcion);					
+					if(data.estado === 'RESUELTO'){
+						$('#btnReabrir').show();
+						$('#btnCerrar').show();
+					}else{
+						$('#btnReabrir').hide();
+						$('#btnCerrar').hide();						
+					}
 				}
 			});		
+			//Cargar menu barra
+			$
+					.ajax({
+						url : '../sti/IncidenciaController',
+						data : {
+							"tipoConsulta" : "busquedaIncidenciasActivasSolicitante"
+						},
+						type : 'POST',
+						datatype : 'json',
+						success : function(data) {							
+							if (data.numRegistros > 0) {
+								var listadoIncidencias = data.listadoIncidencias;
+								$('#contadorIncidencias').text(data.numRegistros);
+								$.each(listadoIncidencias,function(index) {
+									$("#menu1").append(
+											"<li><a id='"+ listadoIncidencias[index].codigo
+											+ "' href='#' onclick='cargarIncidencia(id)'><span><span>"
+											+ listadoIncidencias[index].servicio +"</span><span class='time'>"
+											+ listadoIncidencias[index].fecha +"</span></span><span class='message'>"
+											+ listadoIncidencias[index].titulo+"</span></a></li>");
+												});
+							} else {
+								$("#menu1").append("No existen Registros");
+							}
+						}
+					});	
 		});// Fin ready

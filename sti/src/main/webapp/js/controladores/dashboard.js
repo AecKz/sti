@@ -56,7 +56,7 @@ function registrarIncidencia(idServicio) {
 	$("#menuCentral").empty();
 	$
 			.ajax({
-				url : '../sti/IncidenciaController',
+				url : '../sti/CatalogosController',
 				data : {
 					"tipoConsulta" : "cargarServicios",
 					"idServicio" : idServicio

@@ -25,6 +25,7 @@ function crearIncidencia(){
 	var titulo = $('#txtTitulo').val();
 	var descripcion = $('#txtDescripcion').val();
 	var idServicio = $('#lblServicio').text();
+	var idPrioridad = $("#selectPrioridad").select2("val");
 	$.ajax({
 		url : '../sti/IncidenciaController',
 		data : {
@@ -32,6 +33,7 @@ function crearIncidencia(){
 			"tipoContacto":tipoContacto,
 			"titulo":titulo,
 			"idServicio":idServicio,
+			"idPrioridad":idPrioridad,
 			"descripcion":descripcion
 		},
 		type : 'POST',
@@ -68,7 +70,7 @@ $(document).ready(
 			});
 			// Cargar Datos del Menu
 			$.ajax({
-				url : '../sti/IncidenciaController',
+				url : '../sti/CatalogosController',
 				data : {
 					"tipoConsulta" : "cargarDatosServicio"
 				},
@@ -83,5 +85,22 @@ $(document).ready(
 						+ data.nombreServicio
 						+ "</li>");
 				}
-			});		
+			});	
+			//Cargar select2 tecnicos
+			$.ajax({
+				url : '../sti/CatalogosController',
+				data : {
+					"tipoConsulta" : "cargarPrioridad"
+				},
+				type : 'post',
+				datatype : 'json',
+				success : function (data) {
+					var prioridades = data.listadoPrioridad;	
+					$('.select2Prioridad').select2({
+						data : prioridades,
+						minimumResultsForSearch: Infinity,
+						placeholder : 'Seleccione una prioridad'
+					});												
+				}
+			});//Fin carga tecnicos
 		});// Fin ready

@@ -15,12 +15,16 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import tigre.sti.dao.EstadoDAO;
+import tigre.sti.dao.EtapaDAO;
 import tigre.sti.dao.IncidenciaDAO;
+import tigre.sti.dao.PrioridadDAO;
 import tigre.sti.dao.ServicioDAO;
 import tigre.sti.dao.SolucionDAO;
 import tigre.sti.dao.UsuarioDAO;
 import tigre.sti.dto.Estado;
+import tigre.sti.dto.Etapa;
 import tigre.sti.dto.Incidencia;
+import tigre.sti.dto.Prioridad;
 import tigre.sti.dto.Servicio;
 import tigre.sti.dto.Solucion;
 import tigre.sti.dto.Usuario;
@@ -69,18 +73,14 @@ public class IncidenciaController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject result = new JSONObject();
-		JSONArray serviciosJSONArray = new JSONArray();
-		JSONObject serviciosJSONObject = new JSONObject();
 		JSONArray incidenciasJSONArray = new JSONArray();
 		JSONObject incidenciasJSONObject = new JSONObject();
-		JSONArray tecnicosJSONArray = new JSONArray();
-		JSONObject tecnicosJSONObject = new JSONObject();
-		JSONArray estadosJSONArray = new JSONArray();
-		JSONObject estadosJSONObject = new JSONObject();
 		ServicioDAO servicioDAO = new ServicioDAO();
 		IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		EstadoDAO estadoDAO = new EstadoDAO();
+		EtapaDAO etapaDAO = new EtapaDAO();
+		PrioridadDAO prioridadDAO = new PrioridadDAO();
 		try {
 			String tipoConsulta = request.getParameter("tipoConsulta") == null ? ""
 					: request.getParameter("tipoConsulta");
@@ -94,6 +94,7 @@ public class IncidenciaController extends HttpServlet {
 			String codigo = request.getParameter("codigo") == null ? "" : request.getParameter("codigo");
 			String idTecnico = request.getParameter("idTecnico") == null ? "" : request.getParameter("idTecnico");
 			String idEstado = request.getParameter("idEstado") == null ? "" : request.getParameter("idEstado");
+			String idPrioridad = request.getParameter("idPrioridad") == null ? "" : request.getParameter("idPrioridad");
 			String descripcionSolucion = request.getParameter("solucion") == null ? "" : request.getParameter("solucion");
 			HttpSession session = request.getSession();
 			
@@ -106,32 +107,15 @@ public class IncidenciaController extends HttpServlet {
 			if(idUsuarioSolicitante.equals("")){
 				idUsuarioSolicitante = session.getAttribute("login").toString();
 			}
-			
-			if (tipoConsulta.equals("cargarServicios")) {
-				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
-				List<Servicio> servicios = servicio.getServicios();
-				if (servicios.size() > 0) {
-					for (Servicio auxServicio : servicios) {
-						serviciosJSONObject.put("idServicio", auxServicio.getIdServicio());
-						serviciosJSONObject.put("nombre", auxServicio.getNombre());
-						serviciosJSONArray.add(serviciosJSONObject);
-					}					
-				}
-				result.put("numRegistros", (serviciosJSONArray.size()));
-				result.put("listadoServicios", serviciosJSONArray);
 
-			}
-			if(tipoConsulta.equals("cargarDatosServicio")){
-				Servicio servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
-				result.put("nombreServicio", servicio.getNombre());
-				result.put("descripcionServicio", servicio.getDescripcion());
-				result.put("idServicio", servicio.getIdServicio());
-			}			
 			if (tipoConsulta.equals("crearIncidencia")) {
 				Incidencia incidencia = new Incidencia();
 				Servicio servicio = new Servicio();
 				Usuario usuarioReporta = new Usuario();
 				servicio = servicioDAO.buscarPorId(Integer.parseInt(idServicio));
+				Etapa etapa = new Etapa();
+				etapa = etapaDAO.buscarPorId(1);
+				incidencia.setEtapa(etapa);
 				Estado estado = new Estado();
 				estado= estadoDAO.buscarPorId(1);				
 				incidencia.setEstado(estado);
@@ -143,7 +127,10 @@ public class IncidenciaController extends HttpServlet {
 				incidencia.setTelefonoContacto(telefonoContacto);
 				incidencia.setTipoContacto(tipoContacto);
 				incidencia.setTitulo(titulo);
-				incidencia.setDescripcion(descripcion);				
+				incidencia.setDescripcion(descripcion);
+				Prioridad prioridad = new Prioridad();
+				prioridad = prioridadDAO.buscarPorId(Integer.parseInt(idPrioridad));
+				incidencia.setPrioridad(prioridad);
 				incidenciaDAO.crear(incidencia);
 				//Enviar Email
 //				String toAddress = usuarioReporta.getPersona().getEmail();
@@ -178,6 +165,8 @@ public class IncidenciaController extends HttpServlet {
 				result.put("tipoContacto", incidencia.getTipoContacto());
 				result.put("titulo", incidencia.getTitulo());
 				result.put("descripcion", incidencia.getDescripcion());
+				result.put("prioridad", incidencia.getPrioridad().getNombre());
+				result.put("estado", incidencia.getEstado().getNombre());
 				Servicio servicio = servicioDAO.buscarPorId(incidencia.getServicio().getIdServicio());
 				result.put("nombreServicio", servicio.getNombre());
 				result.put("descripcionServicio", servicio.getDescripcion());
@@ -220,7 +209,7 @@ public class IncidenciaController extends HttpServlet {
 			if(tipoConsulta.equals("busquedaIncidenciasCerradasSolicitante")){
 				Usuario usuario = new Usuario();
 				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
-				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioSolicitante(usuario,3);
+				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioSolicitante(usuario,4);
 				for(Incidencia incidencia: incidencias){
 					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
 					incidenciasJSONObject.put("fecha", fechaTurno);
@@ -233,7 +222,6 @@ public class IncidenciaController extends HttpServlet {
 				result.put("numRegistros", (incidenciasJSONArray.size()));
 				result.put("listadoIncidencias", incidenciasJSONArray);
 			}
-			
 			
 			if(tipoConsulta.equals("busquedaIncidenciasActivasTecnico")){
 				Usuario usuario = new Usuario();
@@ -254,28 +242,7 @@ public class IncidenciaController extends HttpServlet {
 				result.put("numRegistros", (incidenciasJSONArray.size()));
 				result.put("listadoIncidencias", incidenciasJSONArray);
 			}
-			
-			if (tipoConsulta.equals("cargarTecnicos")) {
-				List<Usuario> tecnicos = usuarioDAO.buscarTodosPorRol(4);
-				for(Usuario tecnico: tecnicos){
-					tecnicosJSONObject.put("id", tecnico.getIdUsuario());
-					tecnicosJSONObject.put("text", tecnico.getPersona().getNombres() 
-							+ " " + tecnico.getPersona().getApellidos());
-					tecnicosJSONArray.add(tecnicosJSONObject);
-				}
-				result.put("listadoTecnicos", tecnicosJSONArray);
-			}
-			
-			if (tipoConsulta.equals("cargarEstados")) {
-				List<Estado> estados = estadoDAO.buscarTodos();
-				for(Estado estado: estados){
-					estadosJSONObject.put("id", estado.getIdEstado());
-					estadosJSONObject.put("text", estado.getNombre());
-					estadosJSONArray.add(estadosJSONObject);
-				}
-				result.put("listadoEstados", estadosJSONArray);
-			}
-			
+						
 			if(tipoConsulta.equals("asignarTecnicoIncidencia")){
 				Incidencia incidencia = new Incidencia();
 				incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(codigo));
@@ -283,12 +250,17 @@ public class IncidenciaController extends HttpServlet {
 				usuario1 = usuarioDAO.buscarPorId(Integer.parseInt(idTecnico));
 				incidencia.setUsuario1(usuario1);
 				Estado estado = new Estado();
-				estado = estadoDAO.buscarPorId(6);
+				estado = estadoDAO.buscarPorId(6); //Asignado
+				Etapa etapa = new Etapa();
+				etapa = etapaDAO.buscarPorId(2); //Espera Aprobacion
+				incidencia.setEtapa(etapa);
 				incidencia.setEstado(estado);
+				Date date = new Date();
+				incidencia.setFechaAsignacion(new Timestamp(date.getTime()));
 				incidenciaDAO.editar(incidencia);				
 			}	
 			
-			if(tipoConsulta.equals("crearSolucion")){
+			if(tipoConsulta.equals("crearSolucion") && idEstado.equals("2")){
 				SolucionDAO solucionDAO = new SolucionDAO();
 				Solucion solucion = new Solucion();
 				Incidencia incidencia = new Incidencia();
@@ -300,8 +272,44 @@ public class IncidenciaController extends HttpServlet {
 				solucionDAO.crear(solucion);
 				Estado estado = new Estado();
 				estado = estadoDAO.buscarPorId(Integer.parseInt(idEstado));
+				Etapa etapa = new Etapa();
+				etapa = etapaDAO.buscarPorId(4);//Espera validación
 				incidencia.setEstado(estado);
+				incidencia.setEtapa(etapa);
 				incidenciaDAO.editar(incidencia);				
+			}
+			if(tipoConsulta.equals("cambiarEstadoIncidencia")){
+				Incidencia incidencia = new Incidencia();
+				incidencia = incidenciaDAO.buscarPorId(Integer.parseInt(idIncidencia));
+				if(Integer.parseInt(idEstado) == 5){ // En progreso
+					Etapa etapa = new Etapa();
+					etapa = etapaDAO.buscarPorId(3); // En proceso
+					incidencia.setEtapa(etapa);
+					Estado estado = new Estado();
+					estado = estadoDAO.buscarPorId(Integer.parseInt(idEstado));
+					incidencia.setEstado(estado);
+				}
+				if(Integer.parseInt(idEstado) ==3){ // Cancelado
+					Etapa etapa = new Etapa();
+					etapa = etapaDAO.buscarPorId(5); // Terminado
+					incidencia.setEtapa(etapa);
+					Estado estado = new Estado();
+					estado = estadoDAO.buscarPorId(Integer.parseInt(idEstado));
+					incidencia.setEstado(estado);
+					Date date = new Date();
+					incidencia.setFechaCierre(new Timestamp(date.getTime()));
+				}
+				if(Integer.parseInt(idEstado) ==4){ // Cerrado
+					Etapa etapa = new Etapa();
+					etapa = etapaDAO.buscarPorId(5); // Terminado
+					incidencia.setEtapa(etapa);
+					Estado estado = new Estado();
+					estado = estadoDAO.buscarPorId(Integer.parseInt(idEstado));
+					incidencia.setEstado(estado);
+					Date date = new Date();
+					incidencia.setFechaCierre(new Timestamp(date.getTime()));
+				}
+				incidenciaDAO.editar(incidencia);
 			}
 
 			result.put("success", Boolean.TRUE);

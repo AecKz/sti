@@ -125,7 +125,8 @@
 		              								</a></div>
 		          								</li>
 							                </ul>
-							              </li>							
+							              </li>	
+							              <li><a href="dashboard.jsp" >Catálogo de servicios</a></li>						
 						</ul>
 					</nav>
 				</div>

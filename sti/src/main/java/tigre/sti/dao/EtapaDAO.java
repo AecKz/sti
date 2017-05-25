@@ -1,16 +1,15 @@
 package tigre.sti.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import tigre.sti.dto.Estado;
+import tigre.sti.dto.Etapa;
 import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
 
-public class EstadoDAO extends EntityManagerFactoryDAO {
-	public Estado crear(Estado objeto) {
+public class EtapaDAO extends EntityManagerFactoryDAO {
+	public Etapa crear(Etapa objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -28,7 +27,7 @@ public class EstadoDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Estado editar(Estado objeto) {
+	public Etapa editar(Etapa objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -44,11 +43,11 @@ public class EstadoDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public Estado eliminar(Estado objeto) {
+	public Etapa eliminar(Etapa objeto) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Estado EntidadToBeRemoved = em.getReference(Estado.class, objeto.getIdEstado());
+			Etapa EntidadToBeRemoved = em.getReference(Etapa.class, objeto.getIdEtapa());
 			em.remove(EntidadToBeRemoved);
 			em.getTransaction().commit();
 			return objeto;
@@ -61,48 +60,31 @@ public class EstadoDAO extends EntityManagerFactoryDAO {
 		}
 	}
 
-	public List<Estado> buscarTodos() {
+	public List<Etapa> buscarTodos() {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<Estado> query = em.createQuery("SELECT e FROM Estado e order by e.nombre", Estado.class);
-			List<Estado> results = query.getResultList();
-			return results;
-		} finally {
-			em.close();
-		}
-	}
-	
-	public List<Estado> buscarEstadosTecnico() {
-		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		List<Integer> lista = new ArrayList<Integer>();
-		lista.add(2);
-		lista.add(3);
-		lista.add(5);
-		try {
-			TypedQuery<Estado> query = 
-					em.createQuery("SELECT e FROM Estado e where e.idEstado in :lista", Estado.class)
-					.setParameter("lista", lista);
-			List<Estado> results = query.getResultList();
+			TypedQuery<Etapa> query = em.createQuery("SELECT e FROM Etapa e order by e.nombre", Etapa.class);
+			List<Etapa> results = query.getResultList();
 			return results;
 		} finally {
 			em.close();
 		}
 	}
 
-	public Estado buscarPorId(int id) {
+	public Etapa buscarPorId(int id) {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		Estado estado = new Estado();
+		Etapa etapa = new Etapa();
 		try {
-			TypedQuery<Estado> query = em
-					.createQuery("SELECT c FROM Estado c where c.idEstado = :idEstado ", Estado.class)
-					.setParameter("idEstado", id);
-			List<Estado> results = query.getResultList();
-			estado = results.get(0);
-			return estado;
+			TypedQuery<Etapa> query = em
+					.createQuery("SELECT c FROM Etapa c where c.idEtapa = :idEtapa ", Etapa.class)
+					.setParameter("idEtapa", id);
+			List<Etapa> results = query.getResultList();
+			etapa = results.get(0);
+			return etapa;
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println(e.getMessage());
-			return estado;
+			return etapa;
 		} finally {
 			em.close();
 		}

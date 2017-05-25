@@ -384,7 +384,123 @@ public class IncidenciaController extends HttpServlet {
 				}
 				incidenciaDAO.editar(incidencia);
 			}
+			//Administrador Reportes
+			if(tipoConsulta.equals("busquedaIncidenciasAbiertas")){
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(1);
+				List<Incidencia> incRegistradas = incidenciaDAO.buscarPorEstado(estado);
+				Estado estado2 = new Estado();
+				estado2 = estadoDAO.buscarPorId(6);
+				List<Incidencia> incAsignadas = incidenciaDAO.buscarPorEstado(estado2);
+				List<Incidencia> incidencias = new ArrayList<Incidencia>();
+				incidencias.addAll(incRegistradas);
+				incidencias.addAll(incAsignadas);
+				for(Incidencia incidencia: incidencias){
+					String fechaInicio = Utilitarios.dateToString(incidencia.getFechaInicio());
+					incidenciasJSONObject.put("fechaInicio", fechaInicio);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
+					String fechaAsignacion = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+					incidenciasJSONObject.put("fechaAsignacion", fechaAsignacion);
+					incidenciasJSONObject.put("prioridad", incidencia.getPrioridad().getNombre());
+					if(incidencia.getUsuario1()!= null){
+						incidenciasJSONObject.put("responsable", incidencia.getUsuario1().getPersona().getNombres()+ 
+								" " +incidencia.getUsuario1().getPersona().getApellidos());
+					}else{
+						incidenciasJSONObject.put("responsable", "");
+					}
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			if(tipoConsulta.equals("busquedaIncidenciasProgreso")){
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(2);
+				List<Incidencia> incResueltas = incidenciaDAO.buscarPorEstado(estado);
+				Estado estado2 = new Estado();
+				estado2 = estadoDAO.buscarPorId(5);
+				List<Incidencia> incProgreso = incidenciaDAO.buscarPorEstado(estado2);
+				List<Incidencia> incidencias = new ArrayList<Incidencia>();
+				incidencias.addAll(incResueltas);
+				incidencias.addAll(incProgreso);
+				for(Incidencia incidencia: incidencias){
+					String fechaInicio = Utilitarios.dateToString(incidencia.getFechaInicio());
+					incidenciasJSONObject.put("fechaInicio", fechaInicio);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
+					String fechaAsignacion = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+					incidenciasJSONObject.put("fechaAsignacion", fechaAsignacion);
+					incidenciasJSONObject.put("prioridad", incidencia.getPrioridad().getNombre());
+					if(incidencia.getUsuario1()!= null){
+						incidenciasJSONObject.put("responsable", incidencia.getUsuario1().getPersona().getNombres()+ 
+								" " +incidencia.getUsuario1().getPersona().getApellidos());
+					}else{
+						incidenciasJSONObject.put("responsable", "");
+					}
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
 
+			if(tipoConsulta.equals("busquedaIncidenciasCerradas")){
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(3);
+				List<Incidencia> incCanceladas = incidenciaDAO.buscarPorEstado(estado);
+				Estado estado2 = new Estado();
+				estado2 = estadoDAO.buscarPorId(4);
+				List<Incidencia> incCerradas = incidenciaDAO.buscarPorEstado(estado2);
+				List<Incidencia> incidencias = new ArrayList<Incidencia>();
+				incidencias.addAll(incCanceladas);
+				incidencias.addAll(incCerradas);
+				for(Incidencia incidencia: incidencias){
+					String fechaInicio = Utilitarios.dateToString(incidencia.getFechaInicio());
+					incidenciasJSONObject.put("fechaInicio", fechaInicio);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
+					String fechaAsignacion = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+					incidenciasJSONObject.put("fechaAsignacion", fechaAsignacion);
+					incidenciasJSONObject.put("prioridad", incidencia.getPrioridad().getNombre());
+					if(incidencia.getUsuario1()!= null){
+						incidenciasJSONObject.put("responsable", incidencia.getUsuario1().getPersona().getNombres()+ 
+								" " +incidencia.getUsuario1().getPersona().getApellidos());
+					}else{
+						incidenciasJSONObject.put("responsable", "");
+					}
+					if(incidencia.getSolucions()!=null){
+						String aux = "";
+						for(int i = 0; i<incidencia.getSolucions().size(); i++){
+							aux += incidencia.getSolucions().get(i).getDescripcion()+ "-";
+						}
+						incidenciasJSONObject.put("solucion", aux);
+					}else{
+						incidenciasJSONObject.put("solucion", "");
+					}
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			
 			result.put("success", Boolean.TRUE);
 			response.setContentType("application/json; charset=UTF-8");
 			result.write(response.getWriter());

@@ -69,8 +69,13 @@
 						<div class="menu_section">
 							<h3>Administrador</h3>
 							<ul class="nav side-menu" id="menuLateral">
-								<li><a href="#"><i class="fa fa-file-text-o"></i>Reportes</a>
-								</li>
+								<li><a><i class="fa fa-file-text-o"></i>Reportes<span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu" style="display: none">
+										<li><a href="incidenciasAbiertas.jsp">Incidencias Abiertas</a></li>
+										<li><a href="incidenciasEnProgreso.jsp">Incidencias En Progreso</a>
+										</li>
+										<li><a href="incidenciasCerradas.jsp">Incidencias Cerradas</a></li>
+									</ul></li>
 								<li><a><i class="fa fa-edit"></i>Mantenimiento<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
 										<li><a href="mantenimientoUsuarios.jsp">Usuarios</a>

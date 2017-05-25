@@ -28,7 +28,7 @@
 <script src="js/select2/select2.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/util.js"></script>
-<script src="js/controladores/mantenimientoServicios.js"></script>
+<script src="js/controladores/incidenciasCerradas.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -228,56 +228,13 @@
 
 							<div class="row x_title">
 								<div>
-									<h3>Mantenimiento de los Servicios</h3>
+									<h3>Incidencias Cerradas</h3>
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_content">
 								<div class="row crud-nav-bar">
-		<!-- Button trigger modal -->
-		<button class="btn btn-primary" data-toggle="modal" data-target="#add" id="addButton">
-			<span class="glyphicon glyphicon-plus"></span> &nbsp; Nuevo
-		</button>
-
-		<!-- Modal -->
-		<div class="modal fade" id="add" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form id="formCrud">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
-							</button>
-							<h4 class="modal-title" id="myModalLabel">Servicio</h4>
-						</div>
-						<div class="modal-body">
-							<div class="alert alert-success" id="msgPopup">El Servicio se ha guardado correctamente.</div>
-							<div class="form-group">
-								<input type="hidden"class="form-control" id="codigo">
-								<label>Nombre</label> 
-								<input type="text"class="form-control required" id="nombre">
-								<label>Descripcion</label> 
-								<input type="text"class="form-control required" id="descripcion">
-								<label>Categoria</label> 
-								<br>
-								<select class="select2Categoria form-control" id="categoria" style="width:100%;"></select>
-								<label>Servicio Padre</label> 
-								<br>
-								<select class="select2Servicio form-control" id="servicioP" style="width:100%;"></select>								
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" id="close-popup"
-								data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary" id="save-record">Guardar</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal -->
+		
 							<!-- Datatable -->
 							<div class="row">
 								<div class="col-lg-12">
@@ -289,11 +246,17 @@
 											id="dataTable">
 											<thead>
 												<tr>
-													<th>Nombre</th>
-													<th>Descripci&oacute;n</th>
+													<th>Fecha Inicio</th>
 													<th>Categoria</th>
-													<th>Servicio Padre</th>
-													<th></th>
+													<th>Servicio</th>
+													<th>Titulo</th>
+													<th>Descripcion</th>													
+													<th>Solicitante</th>
+													<th>Estado</th>	
+													<th>Fecha Asignación</th>	
+													<th>Prioridad</th>																										
+													<th>Responsable</th>
+													<th>Solución</th>
 												</tr>
 											</thead>
 											<tbody id="dataTableContent" class="searchable">	

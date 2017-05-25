@@ -219,7 +219,7 @@ public class Utilitarios {
 	 * @return string formato dd-MM-yyyy
 	 */
 	public static String dateToString(Date fecha) {
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		String fechaFinal = "";
 		fechaFinal = df.format(fecha);
 		return fechaFinal;

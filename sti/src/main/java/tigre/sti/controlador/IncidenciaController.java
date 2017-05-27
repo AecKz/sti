@@ -145,7 +145,7 @@ public class IncidenciaController extends HttpServlet {
 			}
 			if(tipoConsulta.equals("busquedaIncidenciasActivas")){
 				Estado estado = new Estado();
-				estado = estadoDAO.buscarPorId(1);
+				estado = estadoDAO.buscarPorId(1);//Estado Registrado
 				List<Incidencia> incidencias = incidenciaDAO.buscarPorEstado(estado);
 				for(Incidencia incidencia: incidencias){
 					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
@@ -406,7 +406,10 @@ public class IncidenciaController extends HttpServlet {
 					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
 							" " +incidencia.getUsuario2().getPersona().getApellidos());
 					incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
-					String fechaAsignacion = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+					String fechaAsignacion = ""; 
+					if(incidencia.getFechaAsignacion()!= null){
+						fechaAsignacion = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+					}
 					incidenciasJSONObject.put("fechaAsignacion", fechaAsignacion);
 					incidenciasJSONObject.put("prioridad", incidencia.getPrioridad().getNombre());
 					if(incidencia.getUsuario1()!= null){

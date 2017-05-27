@@ -17,7 +17,6 @@ function cerrarSesion() {
 		type : 'POST',
 		datatype : 'json',
 		success : function(data) {
-			alert("Sesion cerrada correctamente");
 		}
 	});
 }

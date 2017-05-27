@@ -94,20 +94,14 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 		}
 	}
 	public List<Incidencia> buscarPorEstado(Estado estado) {
-		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		try {
-			TypedQuery<Incidencia> query = em.createQuery(
-					"SELECT c FROM Incidencia c "
-					+ "JOIN FETCH c.estado e  "
-					+ "JOIN FETCH c.usuario1 u1  "
-					+ "JOIN FETCH c.usuario2 u2  "
-					+ "JOIN FETCH c.servicio s  "
-					+ "JOIN FETCH c.etapa et  "
-					+ "JOIN FETCH c.prioridad p "
-					+ "where c.estado= :estado", Incidencia.class)
-					.setParameter("estado", estado);
-			List<Incidencia> results = query.getResultList();			
-			return results;		
+        EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+        try {
+            TypedQuery<Incidencia> query = em.createQuery(
+                    "SELECT c FROM Incidencia c JOIN FETCH c.estado p  where c.estado= :estado", Incidencia.class);
+            query.setParameter("estado", estado);
+            List<Incidencia> results = query.getResultList();            
+            return results;        
+	
 		} finally {
 			em.close();
 		}

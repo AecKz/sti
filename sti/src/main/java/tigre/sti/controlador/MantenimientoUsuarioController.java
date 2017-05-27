@@ -137,15 +137,14 @@ public class MantenimientoUsuarioController extends HttpServlet {
 			if (tipoConsulta.equals("crear")) {
 				Persona auxPersona = new Persona();
 				auxPersona = personaDAO.buscarPorEmail(email);
-				if(auxPersona == null){
+				if(auxPersona.getEmail() == null){
 					persona = personaDAO.crear(persona);
 					usuarioDTO.setPersona(persona);
 					usuarioDTO.setRol(rolDTO);
 					usuarioDTO.setClave("123");
 					usuarioDAO.crear(usuarioDTO);
 				}else{
-					result.put("success", Boolean.FALSE);
-					result.put("error", "La persona ya existe!");
+					throw new Exception("La persona ya existe!");
 				}
 			}
 			//Cargar Rol

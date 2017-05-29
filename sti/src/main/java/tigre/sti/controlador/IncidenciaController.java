@@ -199,7 +199,13 @@ public class IncidenciaController extends HttpServlet {
 			if(tipoConsulta.equals("busquedaIncidenciasActivasSolicitante")){
 				Usuario usuario = new Usuario();
 				usuario = usuarioDAO.buscarPorUsuario(idUsuarioSolicitante);
-				List<Incidencia> incidencias = incidenciaDAO.buscarPorUsuarioSolicitante(usuario, 1);
+				List<Incidencia> incidenciasRegistradas = incidenciaDAO.buscarPorUsuarioSolicitante(usuario, 1);
+				List<Incidencia> incidenciasResueltas = incidenciaDAO.buscarPorUsuarioSolicitante(usuario, 2);
+				List<Incidencia> incidenciasAsignadas = incidenciaDAO.buscarPorUsuarioSolicitante(usuario, 5);
+				List<Incidencia> incidencias = new ArrayList<Incidencia>();
+				incidencias.addAll(incidenciasRegistradas);
+				incidencias.addAll(incidenciasResueltas);
+				incidencias.addAll(incidenciasAsignadas);
 				for(Incidencia incidencia: incidencias){
 					String fechaTurno = Utilitarios.dateToString(incidencia.getFechaInicio());
 					incidenciasJSONObject.put("fecha", fechaTurno);

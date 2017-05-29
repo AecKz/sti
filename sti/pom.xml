@@ -4,7 +4,7 @@
 	<groupId>tigre</groupId>
 	<artifactId>sti</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>sti Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
@@ -47,9 +47,9 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4</version>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.5.6</version>
 		</dependency>
 		</dependencies>
 	<build>

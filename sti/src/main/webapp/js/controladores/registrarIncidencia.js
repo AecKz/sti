@@ -51,6 +51,10 @@ function crearIncidencia(){
 // Carga inicial
 $(document).ready(
 		function() {
+		    $.validate({
+		    	lang : 'es',
+		        modules : 'security'
+		    });
 			// Cargar Datos del Menu
 			$.ajax({
 				url : '../sti/DashboardController',

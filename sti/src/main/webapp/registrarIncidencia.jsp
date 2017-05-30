@@ -32,6 +32,7 @@
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
+<script src="js/form-validator/jquery.form-validator.min.js"></script>
 </head>
 
 
@@ -262,7 +263,7 @@
 												Alternativo</label>
 											<div class="col-md-4">
 												<input id="txtTelefono" name="txtTelefono" type="text"
-													placeholder="" class="form-control input-md" required>
+													placeholder="" class="form-control input-md" data-validation="number" required>
 
 											</div>
 										</div>

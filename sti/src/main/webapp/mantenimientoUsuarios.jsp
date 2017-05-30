@@ -37,6 +37,7 @@
 <script src="js/dataTables/dataTables.bootstrap.js"></script>
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
+<script src="js/form-validator/jquery.form-validator.min.js"></script>
 </head>
 
 
@@ -259,17 +260,18 @@
 							<div class="form-group">
 								<input type="hidden"class="form-control" id="codigo">
 								<label>Nombres</label> 
-								<input type="text"class="form-control required" id="nombres">
+								<input type="text"class="form-control required" id="nombres" data-validation="custom" data-validation-regexp="^([a-z A-Z]+)$">
 								<label>Apellidos</label> 
-								<input type="text"class="form-control required" id="apellidos">
+								<input type="text"class="form-control required" id="apellidos" data-validation="custom" data-validation-regexp="^([a-z A-Z]+)$">
 								<label>Direcci&oacute;n</label> 
 								<input type="text"class="form-control" id="direccion">
 								<label>Email</label> 
-								<input type="text"class="form-control required" id="email">
+								<input type="text"class="form-control required" id="email" data-validation="email">
 								<label>Tel&eacute;fono</label> 
-								<input type="text"class="form-control" id="telefono">
+								<input type="text"class="form-control" id="telefono" data-validation="custom" data-validation-regexp="^([0-9]+)$">
 								<label>Usuario</label> 
-								<input type="text"class="form-control" id="usuario">
+								<input type="text"class="form-control" id="usuario" data-validation="length alphanumeric" 
+		 							data-validation-length="3-12">
 								<label>Rol</label> 
 								<br>
 								<select class="select2Rol form-control" id="rol" style="width:100%;"></select>								

@@ -69,6 +69,9 @@
 										<li><a href="incidenciasEnProgreso.jsp">Incidencias En Progreso</a>
 										</li>
 										<li><a href="incidenciasCerradas.jsp">Incidencias Cerradas</a></li>
+										<li><a href="incidenciasCriticas.jsp">Incidencias Criticas</a></li>
+										<li><a href="incidenciasAFT.jsp">Incidencias AFT</a></li>
+										<li><a href="incidenciasRFT.jsp">Incidencias RFT</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-edit"></i>Mantenimiento<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
@@ -224,9 +227,32 @@
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
-								<ul id="menuCentral">
-								</ul>
-								<!-- 								<div class="x_content"></div> -->
+							<div class="row x_title">
+								<div>
+									<h3 id="lblTitulo">Resumen ITIL</h3>
+								</div>
+							</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h3 class="panel-title">Incidencias Críticas</h3>
+									</div>
+									<ul class="list-group" id="listaCriticas">
+									</ul>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h3 class="panel-title">Incidencias Resueltas Fuera de Tiempo</h3>
+									</div>
+									<ul class="list-group" id="listaRFT">
+									</ul>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h3 class="panel-title">Incidencias Asignadas Fuera de Tiempo</h3>
+									</div>
+									<ul class="list-group" id="listaAFT">
+									</ul>
+								</div>
 
 							</div>
 						</div>

@@ -28,7 +28,7 @@
 <script src="js/select2/select2.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/util.js"></script>
-<script src="js/controladores/incidenciasCerradas.js"></script>
+<script src="js/controladores/incidenciasAFT.js"></script>
 <!-- bootstrap progress js -->
 <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -231,13 +231,13 @@
 
 							<div class="row x_title">
 								<div>
-									<h3>Incidencias Cerradas</h3>
+									<h3>Incidencias Asignadas fuera de Tiempo</h3>
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_content">
 								<div class="row crud-nav-bar">
-		
+
 							<!-- Datatable -->
 							<div class="row">
 								<div class="col-lg-12">
@@ -259,7 +259,6 @@
 													<th>Fecha Asignación</th>	
 													<th>Prioridad</th>																										
 													<th>Responsable</th>
-													<th>Solución</th>
 												</tr>
 											</thead>
 											<tbody id="dataTableContent" class="searchable">	

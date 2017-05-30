@@ -510,6 +510,133 @@ public class IncidenciaController extends HttpServlet {
 				result.put("listadoIncidencias", incidenciasJSONArray);
 			}
 			
+			if(tipoConsulta.equals("busquedaIncidenciasCriticas")){
+				List<Incidencia> incidencias = incidenciaDAO.buscarIncidenciasCriticas();
+				for(Incidencia incidencia: incidencias){
+					String fechaInicio = Utilitarios.dateToString(incidencia.getFechaInicio());
+					incidenciasJSONObject.put("fechaInicio", fechaInicio);
+					incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+					incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+					incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+					incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+					incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+					incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()+ 
+							" " +incidencia.getUsuario2().getPersona().getApellidos());
+					incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
+					String fechaAsignacion = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+					incidenciasJSONObject.put("fechaAsignacion", fechaAsignacion);
+					incidenciasJSONObject.put("prioridad", incidencia.getPrioridad().getNombre());
+					if(incidencia.getUsuario1()!= null){
+						incidenciasJSONObject.put("responsable", incidencia.getUsuario1().getPersona().getNombres()+ 
+								" " +incidencia.getUsuario1().getPersona().getApellidos());
+					}else{
+						incidenciasJSONObject.put("responsable", "");
+					}
+					if(incidencia.getSolucions()!=null){
+						String aux = "";
+						for(int i = 0; i<incidencia.getSolucions().size(); i++){
+							aux += incidencia.getSolucions().get(i).getDescripcion()+ "-";
+						}
+						incidenciasJSONObject.put("solucion", aux);
+					}else{
+						incidenciasJSONObject.put("solucion", "");
+					}
+					incidenciasJSONArray.add(incidenciasJSONObject);
+				}
+				result.put("numRegistros", (incidenciasJSONArray.size()));
+				result.put("listadoIncidencias", incidenciasJSONArray);
+			}
+			//Incidencias que no se resolvieron en el tiempo correspondiente
+			if (tipoConsulta.equals("busquedaIncidenciasRFT")) {
+				List<Incidencia> incidencias = incidenciaDAO.buscarIncidenciasResueltas();
+				for (Incidencia incidencia : incidencias) {
+					Date fechaInicioIncidencia = incidencia.getFechaInicio();
+					Date fechaSolucion = incidencia.getSolucions().get(0).getFecha();
+					long diferenciaFechas = fechaSolucion.getTime() - fechaInicioIncidencia.getTime();
+					long diferenciaHoras = diferenciaFechas / (1000 * 60 * 60); //Diferencia en horas
+					String prioridad = incidencia.getPrioridad().getDuracion().substring(0, 1);
+					if (diferenciaHoras > Long.parseLong(prioridad)) {
+						String fechaInicio = Utilitarios.dateToString(incidencia.getFechaInicio());
+						incidenciasJSONObject.put("fechaInicio", fechaInicio);
+						incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+						incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+						incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+						incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+						incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+						incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()
+								+ " " + incidencia.getUsuario2().getPersona().getApellidos());
+						incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
+						String fechaAsignacion = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+						incidenciasJSONObject.put("fechaAsignacion", fechaAsignacion);
+						incidenciasJSONObject.put("prioridad", incidencia.getPrioridad().getNombre());
+						if (incidencia.getUsuario1() != null) {
+							incidenciasJSONObject.put("responsable", incidencia.getUsuario1().getPersona().getNombres()
+									+ " " + incidencia.getUsuario1().getPersona().getApellidos());
+						} else {
+							incidenciasJSONObject.put("responsable", "");
+						}
+						if (incidencia.getSolucions() != null) {
+							String aux = "";
+							for (int i = 0; i < incidencia.getSolucions().size(); i++) {
+								aux += incidencia.getSolucions().get(i).getDescripcion() + "-";
+							}
+							incidenciasJSONObject.put("solucion", aux);
+						} else {
+							incidenciasJSONObject.put("solucion", "");
+						}
+						incidenciasJSONArray.add(incidenciasJSONObject);
+					}
+					result.put("numRegistros", (incidenciasJSONArray.size()));
+					result.put("listadoIncidencias", incidenciasJSONArray);
+				}
+			}
+			//Incidencias que no se asignaron en el tiempo correspondiente
+			if (tipoConsulta.equals("busquedaIncidenciasAFT")) {
+				Estado estado = new Estado();
+				estado = estadoDAO.buscarPorId(6);
+				List<Incidencia> incidencias = incidenciaDAO.buscarPorEstado(estado);
+				for (Incidencia incidencia : incidencias) {
+					Date fechaInicioIncidencia = incidencia.getFechaInicio();
+					Date fechaAsignacion = incidencia.getFechaAsignacion();
+					long diferenciaFechas = fechaAsignacion.getTime() - fechaInicioIncidencia.getTime();
+					long diferenciaHoras = diferenciaFechas / (1000 * 60 * 60); //Diferencia en horas
+					String prioridad = incidencia.getPrioridad().getDuracion().substring(0, 1);
+					if (diferenciaHoras > Long.parseLong(prioridad)) {
+						String fechaInicio = Utilitarios.dateToString(incidencia.getFechaInicio());
+						incidenciasJSONObject.put("fechaInicio", fechaInicio);
+						incidenciasJSONObject.put("codigo", incidencia.getIdIncidencia());
+						incidenciasJSONObject.put("categoria", incidencia.getServicio().getCategoria().getNombre());
+						incidenciasJSONObject.put("servicio", incidencia.getServicio().getNombre());
+						incidenciasJSONObject.put("titulo", incidencia.getTitulo());
+						incidenciasJSONObject.put("descripcion", incidencia.getDescripcion());
+						incidenciasJSONObject.put("solicitante", incidencia.getUsuario2().getPersona().getNombres()
+								+ " " + incidencia.getUsuario2().getPersona().getApellidos());
+						incidenciasJSONObject.put("estado", incidencia.getEstado().getNombre());
+						String fechaAsigna = Utilitarios.dateToString(incidencia.getFechaAsignacion());
+						incidenciasJSONObject.put("fechaAsignacion", fechaAsigna);
+						incidenciasJSONObject.put("prioridad", incidencia.getPrioridad().getNombre());
+						if (incidencia.getUsuario1() != null) {
+							incidenciasJSONObject.put("responsable", incidencia.getUsuario1().getPersona().getNombres()
+									+ " " + incidencia.getUsuario1().getPersona().getApellidos());
+						} else {
+							incidenciasJSONObject.put("responsable", "");
+						}
+						if (incidencia.getSolucions() != null) {
+							String aux = "";
+							for (int i = 0; i < incidencia.getSolucions().size(); i++) {
+								aux += incidencia.getSolucions().get(i).getDescripcion() + "-";
+							}
+							incidenciasJSONObject.put("solucion", aux);
+						} else {
+							incidenciasJSONObject.put("solucion", "");
+						}
+						incidenciasJSONArray.add(incidenciasJSONObject);
+					}
+					result.put("numRegistros", (incidenciasJSONArray.size()));
+					result.put("listadoIncidencias", incidenciasJSONArray);
+				}
+			}
+			
 			result.put("success", Boolean.TRUE);
 			response.setContentType("application/json; charset=UTF-8");
 			result.write(response.getWriter());

@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import tigre.sti.dto.Estado;
 import tigre.sti.dto.Incidencia;
+import tigre.sti.dto.Prioridad;
 import tigre.sti.dto.Usuario;
 import tigre.sti.entitymanagerfactory.EntityManagerFactoryDAO;
 
@@ -130,6 +131,47 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 			TypedQuery<Incidencia> query = em.createQuery(
 					"SELECT c FROM Incidencia c JOIN FETCH c.usuario1 p  where c.usuario1= :usuario1 and c.estado = :estado", Incidencia.class)
 					.setParameter("usuario1", usuario).setParameter("estado", estado);
+			List<Incidencia> results = query.getResultList();			
+			return results;		
+		} finally {
+			em.close();
+		}
+	}
+	//Prioridad Alta Resueltas
+	public List<Incidencia> buscarIncidenciasCriticas() {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = new Estado();
+		estado = estadoDAO.buscarPorId(2);
+		PrioridadDAO prioridadDAO = new PrioridadDAO();
+		Prioridad prioridad = new Prioridad();
+		prioridad = prioridadDAO.buscarPorId(1);		
+		try {
+			TypedQuery<Incidencia> query = em.createQuery(
+					"SELECT inc FROM Incidencia inc "
+					+ "JOIN FETCH inc.solucions sol "
+					+ "JOIN FETCH inc.prioridad pri "
+					+ "where inc.estado = :estado and inc.prioridad = :prioridad", Incidencia.class)
+					.setParameter("estado", estado).setParameter("prioridad", prioridad);
+			List<Incidencia> results = query.getResultList();			
+			return results;		
+		} finally {
+			em.close();
+		}
+	}
+	//Prioridad Alta Resueltas
+	public List<Incidencia> buscarIncidenciasResueltas() {
+		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = new Estado();
+		estado = estadoDAO.buscarPorId(2);
+		try {
+			TypedQuery<Incidencia> query = em.createQuery(
+					"SELECT inc FROM Incidencia inc "
+					+ "JOIN FETCH inc.solucions sol "
+					+ "JOIN FETCH inc.prioridad pri "
+					+ "where inc.estado = :estado", Incidencia.class)
+					.setParameter("estado", estado);
 			List<Incidencia> results = query.getResultList();			
 			return results;		
 		} finally {

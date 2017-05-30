@@ -77,6 +77,9 @@
 										<li><a href="incidenciasEnProgreso.jsp">Incidencias En Progreso</a>
 										</li>
 										<li><a href="incidenciasCerradas.jsp">Incidencias Cerradas</a></li>
+										<li><a href="incidenciasCriticas.jsp">Incidencias Criticas</a></li>
+										<li><a href="incidenciasAFT.jsp">Incidencias AFT</a></li>
+										<li><a href="incidenciasRFT.jsp">Incidencias RFT</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-edit"></i>Mantenimiento<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">

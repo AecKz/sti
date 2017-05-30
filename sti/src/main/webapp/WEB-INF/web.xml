@@ -77,11 +77,11 @@
  
     <context-param>
         <param-name>user</param-name>
-        <param-value>paajacome@udlanet.ec</param-value>
+        <param-value>jconde@udlanet.ec</param-value>
     </context-param>
  
     <context-param>
         <param-name>pass</param-name>
-        <param-value>ClAex616</param-value>
+        <param-value>J0rg3C0nd3U</param-value>
     </context-param>
 </web-app>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,19 +38,19 @@ import tigre.sti.util.Utilitarios;
 @WebServlet("/IncidenciaController")
 public class IncidenciaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	private String host;
-//	private String port;
-//	private String user;
-//	private String pass;
-//
-//	public void init() {
-//		// reads SMTP server setting from web.xml file
-//		ServletContext context = getServletContext();
-//		host = context.getInitParameter("host");
-//		port = context.getInitParameter("port");
-//		user = context.getInitParameter("user");
-//		pass = context.getInitParameter("pass");
-//	}
+	private String host;
+	private String port;
+	private String user;
+	private String pass;
+
+	public void init() {
+		// reads SMTP server setting from web.xml file
+		ServletContext context = getServletContext();
+		host = context.getInitParameter("host");
+		port = context.getInitParameter("port");
+		user = context.getInitParameter("user");
+		pass = context.getInitParameter("pass");
+	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -136,12 +137,16 @@ public class IncidenciaController extends HttpServlet {
 				incidencia.setPrioridad(prioridad);
 				incidenciaDAO.crear(incidencia);
 				//Enviar Email
-//				String toAddress = usuarioReporta.getPersona().getEmail();
-//				String subject = "Incidencia Creada";
-//				String message = "<i>Saludos!</i><br>";
-//			        message += "<b>Se ha creado una incidencia!</b><br>";
-//			        message += "<font color=red>STI</font>";
-//				Utilitarios.sendEmail(host, port, user, pass, toAddress, subject, message);
+				String toAddress = usuarioReporta.getPersona().getEmail();
+				String subject = "Incidencia Creada";
+				String message = "<i>Saludos!</i><br>";
+			        message += "<b>Se ha creado una incidencia!</b><br>";
+			        message += "Categoria: " + incidencia.getServicio().getCategoria().getNombre()+ "<br>";
+			        message += "Servicio: " + incidencia.getServicio().getNombre()+ "<br>";
+			        message += "Titulo: " + incidencia.getTitulo()+ "<br>";
+			        message += "Descripcion: " + incidencia.getDescripcion()+ "<br>";
+			        message += "<font color=red>STI</font>";
+				Utilitarios.sendEmail(host, port, user, pass, toAddress, subject, message);
 			}
 			if(tipoConsulta.equals("busquedaIncidenciasActivas")){
 				Estado estado = new Estado();
@@ -332,7 +337,18 @@ public class IncidenciaController extends HttpServlet {
 				incidencia.setEstado(estado);
 				Date date = new Date();
 				incidencia.setFechaAsignacion(new Timestamp(date.getTime()));
-				incidenciaDAO.editar(incidencia);				
+				incidenciaDAO.editar(incidencia);
+				//Enviar Email
+				String toAddress = usuario1.getPersona().getEmail();
+				String subject = "Incidencia Asignada";
+				String message = "<i>Saludos!</i><br>";
+			        message += "<b>Se le ha asignado una incidencia!</b><br>";
+			        message += "Categoria: " + incidencia.getServicio().getCategoria().getNombre()+ "<br>";
+			        message += "Servicio: " + incidencia.getServicio().getNombre()+ "<br>";
+			        message += "Titulo: " + incidencia.getTitulo()+ "<br>";
+			        message += "Descripcion: " + incidencia.getDescripcion()+ "<br>";
+			        message += "<font color=red>STI</font>";
+				Utilitarios.sendEmail(host, port, user, pass, toAddress, subject, message);
 			}	
 			
 			if(tipoConsulta.equals("crearSolucion") && idEstado.equals("2")){
@@ -351,7 +367,19 @@ public class IncidenciaController extends HttpServlet {
 				etapa = etapaDAO.buscarPorId(4);//Espera validación
 				incidencia.setEstado(estado);
 				incidencia.setEtapa(etapa);
-				incidenciaDAO.editar(incidencia);				
+				incidenciaDAO.editar(incidencia);
+				//Enviar Email
+				String toAddress = incidencia.getUsuario2().getPersona().getEmail();
+				String subject = "Incidencia Resuelta";
+				String message = "<i>Saludos!</i><br>";
+			        message += "<b>Se ha creado una incidencia!</b><br>";
+			        message += "Categoria: " + incidencia.getServicio().getCategoria().getNombre()+ "<br>";
+			        message += "Servicio: " + incidencia.getServicio().getNombre()+ "<br>";
+			        message += "Titulo: " + incidencia.getTitulo()+ "<br>";
+			        message += "Descripcion: " + incidencia.getDescripcion()+ "<br>";
+			        message += "Solucion: " + solucion.getDescripcion()+ "<br>";
+			        message += "<font color=red>STI</font>";
+				Utilitarios.sendEmail(host, port, user, pass, toAddress, subject, message);
 			}
 			if(tipoConsulta.equals("cambiarEstadoIncidencia")){
 				Incidencia incidencia = new Incidencia();

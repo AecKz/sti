@@ -372,7 +372,7 @@ public class IncidenciaController extends HttpServlet {
 				String toAddress = incidencia.getUsuario2().getPersona().getEmail();
 				String subject = "Incidencia Resuelta";
 				String message = "<i>Saludos!</i><br>";
-			        message += "<b>Se ha creado una incidencia!</b><br>";
+			        message += "<b>Se ha resuelto una incidencia!</b><br>";
 			        message += "Categoria: " + incidencia.getServicio().getCategoria().getNombre()+ "<br>";
 			        message += "Servicio: " + incidencia.getServicio().getNombre()+ "<br>";
 			        message += "Titulo: " + incidencia.getTitulo()+ "<br>";

@@ -65,5 +65,9 @@ $(document)
 							}
 						}
 					});			
+					//Imprimir
+					$('#btnImprimirLista').click(function(){	
+							$.print("#reporteAbiertas");
+					});
 
 				});//Fin ready

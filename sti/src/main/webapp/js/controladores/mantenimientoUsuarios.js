@@ -193,5 +193,9 @@ $(document)
 							}
 						});
 					}	
+					//Imprimir
+					$('#btnImprimirLista').click(function(){	
+							$.print("#reporteUsuarios");
+					});
 
 				});//Fin ready

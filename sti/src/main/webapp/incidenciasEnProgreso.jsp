@@ -37,6 +37,7 @@
 <script src="js/dataTables/dataTables.bootstrap.js"></script>
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
+<script src="js/jQuery.print.js"></script>
 </head>
 
 
@@ -235,13 +236,16 @@
 								</div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12">
+			<button class="btn btn-primary" id="btnImprimirLista">
+				<span class="glyphicon glyphicon-print"></span> &nbsp; Imprimir
+			</button>
 							<div class="x_content">
 								<div class="row crud-nav-bar">
 
 							<!-- Datatable -->
 							<div class="row">
 								<div class="col-lg-12">
-									<div class="table-responsive">	
+									<div class="table-responsive" id="reporteProgreso">	
 									<div class="input-group"> <span class="input-group-addon">Filtro</span>
 										    <input id="filter" type="text" class="form-control" placeholder="Escriba la palabra a buscar...">
 										</div>		

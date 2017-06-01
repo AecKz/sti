@@ -38,6 +38,7 @@
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
 <script src="js/form-validator/jquery.form-validator.min.js"></script>
+<script src="js/jQuery.print.js"></script>
 </head>
 
 
@@ -242,7 +243,10 @@
 		<button class="btn btn-primary" data-toggle="modal" data-target="#add" id="addButton">
 			<span class="glyphicon glyphicon-plus"></span> &nbsp; Nuevo
 		</button>
-
+							<!-- Boton de Guardar lista -->
+		<button class="btn btn-primary" id="btnImprimirLista">
+			<span class="glyphicon glyphicon-print"></span> &nbsp; Imprimir
+		</button>
 		<!-- Modal -->
 		<div class="modal fade" id="add" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -291,7 +295,7 @@
 							<!-- Datatable -->
 							<div class="row">
 								<div class="col-lg-12">
-									<div class="table-responsive">	
+									<div class="table-responsive" id="reporteUsuarios">	
 									<div class="input-group"> <span class="input-group-addon">Filtro</span>
 										    <input id="filter" type="text" class="form-control" placeholder="Escriba la palabra a buscar...">
 										</div>		

@@ -65,5 +65,10 @@ $(document)
 							}
 						}
 					});			
+					
+					//Imprimir
+					$('#btnImprimirLista').click(function(){	
+						$.print("#reporteCriticas");
+				});
 
 				});//Fin ready

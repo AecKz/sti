@@ -150,6 +150,11 @@ $(document)
 								}
 							}
 						});
-					}			
+					}	
+					//Imprimir
+					$('#btnImprimirLista').click(function(){	
+							$.print("#reporteCategorias");
+					});
+
 
 				});//Fin ready

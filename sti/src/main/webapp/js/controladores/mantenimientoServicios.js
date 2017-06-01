@@ -192,5 +192,9 @@ $(document)
 							}
 						});
 					}		
+					//Imprimir
+					$('#btnImprimirLista').click(function(){	
+							$.print("#reporteServicios");
+					});
 
 				});// Fin ready

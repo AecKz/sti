@@ -54,4 +54,51 @@ public class Test {
 			e.printStackTrace();
 		}
 	}
+//	@org.junit.Test
+//	public void generarExcel(){
+//		String fileName = "C://excel//MyFirstExcel.xlsx";
+//		XSSFWorkbook workbook = new XSSFWorkbook();
+//        XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
+//        IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+//        List <Incidencia> criticas = incidenciaDAO.buscarIncidenciasCriticas();
+//        String[] headers = new String[]{
+//                "id",
+//                "Titulo",
+//                "Descripcion"
+//            };
+//        
+//        Object[][] datatypes = {
+//                {"id", "titulo", "descripcion"}
+//        };
+//        Object[] row = {};
+//        datatypes = ArrayUtils.add(datatypes, row);
+//        int rowNum = 0;
+//        System.out.println("Creating excel");
+//
+//        for (Object[] datatype : datatypes) {
+//            Row row = sheet.createRow(rowNum++);
+//            int colNum = 0;
+//            for (Object field : datatype) {
+//                Cell cell = row.createCell(colNum++);
+//                if (field instanceof String) {
+//                    cell.setCellValue((String) field);
+//                } else if (field instanceof Integer) {
+//                    cell.setCellValue((Integer) field);
+//                }
+//            }
+//        }
+//
+//        try {
+//            FileOutputStream outputStream = new FileOutputStream(fileName);
+//            workbook.write(outputStream);
+//            workbook.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("Done");
+//		
+//	}
 }

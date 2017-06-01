@@ -66,5 +66,9 @@ $(document)
 							}
 						}
 					});			
+					//Imprimir
+					$('#btnImprimirLista').click(function(){	
+						$.print("#reporteCerradas");
+				});
 
 				});//Fin ready

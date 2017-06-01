@@ -64,6 +64,10 @@ $(document)
 								$("#dataTableContent").append("<tr><td colspan='2'>No existen Registros</td></tr>");
 							}
 						}
-					});			
+					});	
+					//Imprimir
+					$('#btnImprimirLista').click(function(){	
+						$.print("#reporteRFT");
+				});
 
 				});//Fin ready

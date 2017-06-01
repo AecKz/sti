@@ -140,9 +140,6 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 	//Prioridad Alta Resueltas
 	public List<Incidencia> buscarIncidenciasCriticas() {
 		EntityManager em = obtenerEntityManagerFactory().createEntityManager();
-		EstadoDAO estadoDAO = new EstadoDAO();
-		Estado estado = new Estado();
-		estado = estadoDAO.buscarPorId(2);
 		PrioridadDAO prioridadDAO = new PrioridadDAO();
 		Prioridad prioridad = new Prioridad();
 		prioridad = prioridadDAO.buscarPorId(1);		
@@ -151,8 +148,8 @@ public class IncidenciaDAO extends EntityManagerFactoryDAO {
 					"SELECT inc FROM Incidencia inc "
 					+ "JOIN FETCH inc.solucions sol "
 					+ "JOIN FETCH inc.prioridad pri "
-					+ "where inc.estado = :estado and inc.prioridad = :prioridad", Incidencia.class)
-					.setParameter("estado", estado).setParameter("prioridad", prioridad);
+					+ "where inc.prioridad = :prioridad", Incidencia.class)
+					.setParameter("prioridad", prioridad);
 			List<Incidencia> results = query.getResultList();			
 			return results;		
 		} finally {

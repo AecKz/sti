@@ -36,6 +36,7 @@
 <!-- pace -->
 <script src="js/pace/pace.min.js"></script>
 <script src="js/jQuery.print.js"></script>
+<script src="js/form-validator/jquery.form-validator.min.js"></script>
 </head>
 
 
@@ -262,9 +263,9 @@
 							<div class="form-group">
 								<input type="hidden"class="form-control" id="codigo">
 								<label>Nombre</label> 
-								<input type="text"class="form-control required" id="nombre">
+								<input type="text"class="form-control required" id="nombre" data-validation="custom" data-validation-regexp="^([a-z A-Z]+)$">
 								<label>Descripci&oacute;n</label> 
-								<input type="text"class="form-control required" id="descripcion">																
+								<input type="text"class="form-control required" id="descripcion" data-validation="custom" data-validation-regexp="^([a-z A-Z]+)$">																
 							</div>
 						</div>
 						<div class="modal-footer">

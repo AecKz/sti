@@ -25,6 +25,10 @@ function cerrarSesion() {
 $(document)
 		.ready(
 				function() {
+				    $.validate({
+				    	lang : 'es',
+				        modules : 'date, security'
+				    });
 					// Cargar Datos del Menu
 					$.ajax({
 						url : '../sti/DashboardController',

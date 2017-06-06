@@ -163,7 +163,38 @@ $(document)
 								tipoConsulta = "actualizar";
 							}
 							if(retorno){
-								enviarDatos(codigo, nombres, apellidos, direccion, telefono, email, usuario, rol, tipoConsulta);
+								var flag = 0;
+								var re = new RegExp("^([a-z A-Z]+)$");
+								var re2 = new RegExp("^([0-9]+)$");
+								if (re.test(nombres)) {
+								    console.log("Valid");
+								    flag++;
+								} else {
+								    flag--;
+								}
+								if (re.test(apellidos)) {
+								    console.log("Valid");
+								    flag++;
+								} else {
+								    flag--;
+								}
+								if (re.test(usuario)) {
+								    console.log("Valid");
+								    flag++;
+								} else {
+								    flag--;
+								}
+								if (re2.test(telefono)) {
+								    console.log("Valid");
+								    flag++;
+								} else {
+								    flag--;
+								}
+								if(flag >= 4){
+									enviarDatos(codigo, nombres, apellidos, direccion, telefono, email, usuario, rol, tipoConsulta);
+								}else{
+									alert('Datos incorrectos!');
+								}								
 							}
 						});
 					/* Fin Controles Grabar Resgistro*/

@@ -130,7 +130,25 @@ $(document)
 								tipoConsulta = "actualizar";
 							}
 							if(retorno){
+								var flag = 0;
+								var re = new RegExp("^([a-z A-Z]+)$");
+								if (re.test(nombre)) {
+								    console.log("Valid");
+								    flag++;
+								} else {
+								    flag--;
+								}
+								if (re.test(descripcion)) {
+								    console.log("Valid");
+								    flag++;
+								} else {
+								    flag--;
+								}
+								if(flag > 1){
 								enviarDatos(codigo, nombre, descripcion, tipoConsulta);
+								}else{
+									alert('Datos incorrectos!');
+								}
 							}
 						});
 					/* Fin Controles Grabar Resgistro*/

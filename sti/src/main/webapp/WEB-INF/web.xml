@@ -3,5 +3,85 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+	<display-name>STI</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.IndexController</servlet-name>
+		<servlet-class>tigre.sti.controlador.IndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.IndexController</servlet-name>
+		<url-pattern>/IndexController</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.DashboardController</servlet-name>
+		<servlet-class>tigre.sti.controlador.DashboardController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.DashboardController</servlet-name>
+		<url-pattern>/DashboardController</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.IncidenciaController</servlet-name>
+		<servlet-class>tigre.sti.controlador.IncidenciaController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.IncidenciaController</servlet-name>
+		<url-pattern>/IncidenciaController</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.MantenimientoCategoriaController</servlet-name>
+		<servlet-class>tigre.sti.controlador.MantenimientoCategoriaController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.MantenimientoCategoriaController</servlet-name>
+		<url-pattern>/MantenimientoCategoriaController</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.MantenimientoUsuarioController</servlet-name>
+		<servlet-class>tigre.sti.controlador.MantenimientoUsuarioController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.MantenimientoUsuarioController</servlet-name>
+		<url-pattern>/MantenimientoUsuarioController</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.MantenimientoServicioController</servlet-name>
+		<servlet-class>tigre.sti.controlador.MantenimientoServicioController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.MantenimientoServicioController</servlet-name>
+		<url-pattern>/MantenimientoServicioController</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tigre.sti.controlador.CatalogosController</servlet-name>
+		<servlet-class>tigre.sti.controlador.CatalogosController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tigre.sti.controlador.CatalogosController</servlet-name>
+		<url-pattern>/CatalogosController</url-pattern>
+	</servlet-mapping>
+	
+	<!-- SMTP settings -->
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>jconde@udlanet.ec</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>J0rg3C0nd3U</param-value>
+    </context-param>
 </web-app>
